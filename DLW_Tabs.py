@@ -28,7 +28,7 @@ class CreatePreview(object):
 
 "___AOD Letters TAB___"
 def aod_tab(application):
-    aod_tab = application.app_tab_list[0]
+    aod_tab = application.app_tab_dict['AOD Letters']
     add_heading(aod_tab, 'Affiant')
     affiant_fields = Address()
     add_gender_button(aod_tab, affiant_fields)
@@ -73,7 +73,7 @@ def aod_tab(application):
 
 "___General Letters TAB___"
 def gen_tab(application):
-    gen_tab = application.app_tab_list[1]
+    gen_tab = application.app_tab_dict['General Letters']
     add_heading(gen_tab, 'Recipient')
     recipient_fields = PrisonerAddress()
     add_gender_button(gen_tab, recipient_fields)
@@ -106,3 +106,13 @@ def gen_tab(application):
     button_ttp = CreatePreview(button, field, GEN_NotFiledLetter.return_preview())
     button2_ttp = CreatePreview(button2, field, GEN_NoCaseLetter.return_preview())
     button3_ttp = CreatePreview(button3, field, GEN_NoFormsLetter.return_preview())
+
+"___Jurisdictional Letters TAB___"
+def jur_tab(application):
+        jur_tab = application.app_tab_dict['Jurisdictional Letters']
+        add_heading(jur_tab, 'Recipient')
+        recipient_fields = PrisonerAddress()
+        add_gender_button(jur_tab, recipient_fields)
+        add_fields_from_list(jur_tab, recipient_fields)
+
+        add_heading(jur_tab, 'Templates')

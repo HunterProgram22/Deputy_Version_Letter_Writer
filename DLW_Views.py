@@ -12,7 +12,7 @@ BTNWIDTH = 20
 FAQ = 'S:\\AOD\\AOD_Test\\FAQ.docx'
 COA = 'S:\\AOD\\AOD_Test\\COA.docx'
 AFP = 'S:\\AOD\\AOD_Test\\AFP.docx' #Not currently in folder
-TAB_LIST = ['AOD Letters', 'General Letters']
+TAB_DICT = {'AOD Letters': 0, 'General Letters': 1, 'Jurisdictional Letters': 2, }
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 
 
@@ -108,20 +108,20 @@ def add_preview_field(master, text):
 class AppWindow(ttk.Frame):
     """The main application window."""
     def __init__(self, master):
-        self.tab_list = TAB_LIST
+        self.tab_dict = TAB_DICT
         self.master = master
         self.notebook = ttk.Notebook(self.master)
         self.notebook.grid(row=1, column=0, columnspan=50, rowspan=49, sticky='NESW')
         self.set_style()
         self.menu = AppMenu(self.master)
-        self.app_tab_list = []
-        for tabs in self.tab_list:
-                if tabs == 'General Letters':
-                    self.tab = TabWindowPrisoner(self.notebook)
-                else:
+        self.app_tab_dict = {}
+        for key, value in self.tab_dict.items():
+                if key == 'AOD Letters':
                     self.tab = TabWindow(self.notebook)
-                self.notebook.add(self.tab, text=tabs)
-                self.app_tab_list.append(self.tab)
+                else:
+                    self.tab = TabWindowPrisoner(self.notebook)
+                self.notebook.add(self.tab, text=key)
+                self.app_tab_dict[key] = self.tab
 
     def set_style(self):
         """Sets the style for objects on the application. Can add new styles in

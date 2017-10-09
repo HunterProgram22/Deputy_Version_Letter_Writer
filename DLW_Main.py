@@ -2,7 +2,7 @@ from tkinter import Tk, E
 import tkinter.ttk as ttk
 from DLW_Views import AppWindow
 #from DLW_Controller import *
-from DLW_Tabs import aod_tab, gen_tab
+from DLW_Tabs import aod_tab, gen_tab, jur_tab
 
 
 def add_weight(widget):
@@ -35,6 +35,7 @@ application = AppWindow(root)
 tab."""
 aod_tab(application)
 gen_tab(application)
+jur_tab(application)
 
 
 """Run the application."""
