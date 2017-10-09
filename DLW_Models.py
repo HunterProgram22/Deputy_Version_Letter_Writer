@@ -1,7 +1,7 @@
 from tkinter import StringVar, IntVar, Text
 
 class Address(object):
-    """ A class model object for creating a mailing address. """
+    """ A for creating a mailing address. """
     def __init__ (self):
         self.first_name = StringVar()
         self.last_name = StringVar()

@@ -1,7 +1,6 @@
 from tkinter import Tk, E
 import tkinter.ttk as ttk
 from DLW_Views import AppWindow
-#from DLW_Controller import *
 from DLW_Tabs import aod_tab, create_tab, add_gen_tab_buttons, add_jur_tab_buttons
 
 

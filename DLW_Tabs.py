@@ -116,8 +116,8 @@ def add_jur_tab_buttons(tab, field, recipient_fields):
             lambda: button_create_jur_letter(recipient_fields, "Late JUR"))
     button2 = add_button_left(tab, 'Late Jur - Delayed Appeal Info',
             lambda: button_create_jur_letter(recipient_fields, "Late JUR Delayed Appeal"))
-    #button3 = add_button_left(tab, 'Create No Forms Letter',
-            #lambda: button_create_gen_letter(recipient_fields, "No Forms"))
+    button3 = add_button_left(tab, 'Timely Jur - Missing Documents',
+            lambda: button_create_jur_letter(recipient_fields, "Timely JUR Missing Docs"))
     button_ttp = CreatePreview(button, field, GEN_LateJurLetter.return_preview())
     button2_ttp = CreatePreview(button2, field, GEN_LateJurDelayedAppealLetter.return_preview())
-    #button3_ttp = CreatePreview(button3, field, GEN_NoFormsLetter.return_preview())
+    button3_ttp = CreatePreview(button3, field, GEN_TimelyJurMissingDocsLetter.return_preview())

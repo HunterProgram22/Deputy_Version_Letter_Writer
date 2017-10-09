@@ -93,7 +93,6 @@ def add_preview_field(master):
     widget = Text(master, height=10, wrap=WORD, font="Time 8")
     widget.grid(row=master.row_cursor, column=1, columnspan=3, rowspan=5, padx=5,
             pady=5, sticky='NSEW')
-    #master.grid_columnconfigure(1, weight=1)
     master.grid_rowconfigure(12, weight=1)
     master.grid_rowconfigure(13, weight=1)
     master.grid_rowconfigure(14, weight=1)
