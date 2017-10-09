@@ -64,6 +64,19 @@ class PrisonerAddress(Address):
         self.data_fields.insert(5, ('Address 2', self.address_2))
 
 
+class PrisonerAddressJurDates(PrisonerAddress):
+    """A subclass of the PrisonerAddress object that includes variables
+    for due dates."""
+    def __init__(self):
+        PrisonerAddress.__init__(self)
+        self.coa_decision_date = StringVar()
+        self.appeal_due_date = StringVar()
+        self.document_received_date = StringVar()
+        self.data_fields.append(('COA Decision Date', self.coa_decision_date))
+        self.data_fields.append(('Appeal Due Date', self.appeal_due_date))
+        self.data_fields.append(('Documents Received Date', self.document_received_date))
+
+
 class AttorneyAddress(Address):
     """ A subclass model object of the Address class that also includes a
     field for attorney number. """

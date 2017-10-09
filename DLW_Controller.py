@@ -19,6 +19,8 @@ GEN_TEMPLATE = TEMPLATE_PATH + 'Gen_Template.docx'
 NOTFILED_TEMPLATE = TEMPLATE_PATH + 'NotFiled_Template.docx'
 NOCASE_TEMPLATE = TEMPLATE_PATH + 'NoCase_Template.docx'
 NOFORMS_TEMPLATE = TEMPLATE_PATH + 'NoForms_Template.docx'
+LATEJUR_TEMPLATE = TEMPLATE_PATH + 'LateJur_Template.docx'
+LATEJUR_DAF_TEMPLATE = TEMPLATE_PATH + 'LateJurDelayedAppeal_Template.docx'
 
 DATE_LETTER = time.strftime("%B %d, %Y")
 DATE_FILENAME = time.strftime("%m-%d-%y")
@@ -72,6 +74,7 @@ def button_create_judge_letter(affiant_fields, case_information_fields,
     letter.create_letter()
 
 def button_create_gen_letter(recipient, letter_type):
+    """Make this function a dictionary??"""
     fields = gen_return_field_values(recipient)
     if letter_type == "Not Filed":
         letter = GEN_NotFiledLetter(fields)
@@ -79,6 +82,17 @@ def button_create_gen_letter(recipient, letter_type):
         letter = GEN_NoCaseLetter(fields)
     elif letter_type == "No Forms":
         letter = GEN_NoFormsLetter(fields)
+    else:
+        letter = GEN_Letter(fields)
+    letter.create_letter()
+
+def button_create_jur_letter(recipient, letter_type):
+    """Make this function a dictionary??"""
+    fields = jur_return_field_values(recipient)
+    if letter_type == "Late JUR":
+        letter = GEN_LateJurLetter(fields)
+    elif letter_type == "Late JUR Delayed Appeal":
+        letter = GEN_LateJurDelayedAppealLetter(fields)
     else:
         letter = GEN_Letter(fields)
     letter.create_letter()
@@ -148,6 +162,30 @@ def gen_return_field_values(recipient_fields):
     field_values["city"] = recipient_fields.city.get()
     field_values["state"] = recipient_fields.state.get()
     field_values["zipcode"] = recipient_fields.zipcode.get()
+    field_values["date"] = DATE_LETTER
+    return field_values
+
+def jur_return_field_values(recipient_fields):
+    field_values = {}
+    if recipient_fields.gender.get() == 1:
+        field_values["prefix"] = "Mr."
+    else:
+        field_values["prefix"] = "Ms."
+    field_values["first_name"] = recipient_fields.first_name.get()
+    field_values["last_name"] = recipient_fields.last_name.get()
+    field_values["inmate_number"] = recipient_fields.inmate_number.get()
+    field_values["prison"] = recipient_fields.prison.get()
+    field_values["address"] = recipient_fields.address.get()
+    if recipient_fields.address_2.get() == "None":
+        field_values["address2"] = ""
+    else:
+        field_values["address2"] = recipient_fields.address_2.get()
+    field_values["city"] = recipient_fields.city.get()
+    field_values["state"] = recipient_fields.state.get()
+    field_values["zipcode"] = recipient_fields.zipcode.get()
+    field_values["coa_decision_date"] = recipient_fields.coa_decision_date.get()
+    field_values["appeal_due_date"] = recipient_fields.appeal_due_date.get()
+    field_values["document_received_date"] = recipient_fields.document_received_date.get()
     field_values["date"] = DATE_LETTER
     return field_values
 
@@ -244,21 +282,53 @@ class GEN_Letter(Letter):
 
 
 class GEN_NotFiledLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = NOTFILED_TEMPLATE
+
     @classmethod
     def get_template(cls):
         return NOTFILED_TEMPLATE
 
 
 class GEN_NoCaseLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = NOCASE_TEMPLATE
+
     @classmethod
     def get_template(cls):
         return NOCASE_TEMPLATE
 
 
 class GEN_NoFormsLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = NOFORMS_TEMPLATE
+
     @classmethod
     def get_template(cls):
         return NOFORMS_TEMPLATE
+
+
+class GEN_LateJurLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = LATEJUR_TEMPLATE
+
+    @classmethod
+    def get_template(cls):
+        return LATEJUR_TEMPLATE
+
+
+class GEN_LateJurDelayedAppealLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = LATEJUR_DAF_TEMPLATE
+
+    @classmethod
+    def get_template(cls):
+        return LATEJUR_DAF_TEMPLATE
 
 
 def clear_all():

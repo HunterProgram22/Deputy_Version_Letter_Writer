@@ -12,7 +12,8 @@ BTNWIDTH = 20
 FAQ = 'S:\\AOD\\AOD_Test\\FAQ.docx'
 COA = 'S:\\AOD\\AOD_Test\\COA.docx'
 AFP = 'S:\\AOD\\AOD_Test\\AFP.docx' #Not currently in folder
-TAB_DICT = {'AOD Letters': 0, 'General Letters': 1, 'Jurisdictional Letters': 2, }
+TAB_DICT = {'Jurisdictional Letters': 0, 'General Letters': 1, 'Original Action Letters': 2,
+'Timeliness Letters': 3, 'AOD Letters': 4,}
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 
 
@@ -56,15 +57,28 @@ def add_button_left(master, button_name, button_command):
     return button
 
 def add_fields_from_list(master, model):
-    for field in model.return_data_fields():
-        Label(master, text=field[0]).grid(row=master.row_cursor, column=0,
+    fields = model.return_data_fields()
+    count = 0
+    for field in fields:
+        if count == 9:
+            master.set_row_cursor(3)
+            master.set_col_cursor (2)
+        Label(master, text=field[0]).grid(row=master.row_cursor, column=master.col_cursor,
             sticky=W, padx=10, pady=5)
         if field[0] == 'Institution':
             master.set_prison_field(field, model)
         else:
             Entry(master, textvariable=field[1], width=20).grid(row=master.row_cursor,
-                    column=1, pady=5)
+                    column=master.col_cursor+1, pady=5)
         master.row_cursor += 1
+        count +=1
+
+def add_field(master, label, variable):
+    Label(master, text=label).grid(row=master.row_cursor, column=master.col_cursor,
+            sticky=W, padx=10, pady=5)
+    Entry(master, textvariable=variable, width=20).grid(row=master.row_cursor,
+                    column=master.col_cursor+1, pady=5)
+    master.row_cursor += 1
 
 def add_text_field(master, text):
     """Adds a multiline text entry field."""
@@ -75,7 +89,7 @@ def add_text_field(master, text):
     master.text_field.insert("1.0", "")
     master.row_cursor += 1
 
-def add_preview_field(master, text):
+def add_preview_field(master):
     widget = Text(master, height=10, wrap=WORD, font="Time 8")
     widget.grid(row=master.row_cursor, column=1, columnspan=3, rowspan=5, padx=5,
             pady=5, sticky='NSEW')

@@ -2,7 +2,7 @@ from tkinter import Tk, E
 import tkinter.ttk as ttk
 from DLW_Views import AppWindow
 #from DLW_Controller import *
-from DLW_Tabs import aod_tab, gen_tab, jur_tab
+from DLW_Tabs import aod_tab, create_tab, add_gen_tab_buttons, add_jur_tab_buttons
 
 
 def add_weight(widget):
@@ -34,8 +34,12 @@ application = AppWindow(root)
 """For each tab on the application widget create the content of that
 tab."""
 aod_tab(application)
-gen_tab(application)
-jur_tab(application)
+gen_tab = create_tab(application, 'General Letters')
+add_gen_tab_buttons(gen_tab[0], gen_tab[1], gen_tab[2])
+jur_tab = create_tab(application, 'Jurisdictional Letters')
+add_jur_tab_buttons(jur_tab[0], jur_tab[1], jur_tab[2])
+oa_tab = create_tab(application, 'Original Action Letters')
+time_tab = create_tab(application, 'Timeliness Letters')
 
 
 """Run the application."""

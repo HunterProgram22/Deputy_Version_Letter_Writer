@@ -1,7 +1,7 @@
 from tkinter import END
 import tkinter as tk
 from DLW_Models import Address, JudgeAddress, CaseInformation, \
-    AttorneyAddress, AODRequirements, PrisonerAddress
+    AttorneyAddress, AODRequirements, PrisonerAddress, PrisonerAddressJurDates
 from DLW_Controller import *
 from DLW_Views import *
 from Tool_Tips import *
@@ -71,48 +71,53 @@ def aod_tab(application):
     add_button_right(aod_tab, 'Clear Judge', lambda: clear_fields(judge_fields))
 
 
-"___General Letters TAB___"
-def gen_tab(application):
-    gen_tab = application.app_tab_dict['General Letters']
-    add_heading(gen_tab, 'Recipient')
-    recipient_fields = PrisonerAddress()
-    add_gender_button(gen_tab, recipient_fields)
-    add_fields_from_list(gen_tab, recipient_fields)
+def create_tab(application, tab_name):
+    """A generic tab for multiple templates with a preview window."""
+    tab = application.app_tab_dict[tab_name]
+    add_heading(tab, 'Recipient')
+    if tab_name == 'Jurisdictional Letters':
+        recipient_fields = PrisonerAddressJurDates()
+    else:
+        recipient_fields = PrisonerAddress()
+    add_gender_button(tab, recipient_fields)
+    add_fields_from_list(tab, recipient_fields)
+    tab.set_row_cursor(11)
+    tab.set_col_cursor(0)
+    add_heading(tab, 'Templates')
+    tab.set_row_cursor(11)
+    tab.set_col_cursor(1)
+    add_heading(tab, 'Letter Preview')
+    field = add_preview_field(tab)
+    tab.set_col_cursor(2)
+    tab.set_row_cursor(2)
+    add_button_left(tab, 'Print Label',lambda: button_print_label(recipient_fields))
+    tab.set_col_cursor(3)
+    tab.set_row_cursor(2)
+    add_button_left(tab, 'Clear Recipient',lambda: clear_fields(recipient_fields))
+    return (tab, field, recipient_fields)
 
-    add_heading(gen_tab, 'Templates')
-
-    button = add_button_left(gen_tab, 'Create Not Filed Letter',
+def add_gen_tab_buttons(tab, field, recipient_fields):
+    tab.set_col_cursor(0)
+    tab.set_row_cursor(12)
+    button = add_button_left(tab, 'Create Not Filed Letter',
             lambda: button_create_gen_letter(recipient_fields, "Not Filed"))
-
-    button2 = add_button_left(gen_tab, 'Create No Case Letter',
+    button2 = add_button_left(tab, 'Create No Case Letter',
             lambda: button_create_gen_letter(recipient_fields, "No Case"))
-
-    button3 = add_button_left(gen_tab, 'Create No Forms Letter',
+    button3 = add_button_left(tab, 'Create No Forms Letter',
             lambda: button_create_gen_letter(recipient_fields, "No Forms"))
-
-    gen_tab.set_col_cursor(2)
-    gen_tab.set_row_cursor(2)
-
-    add_button_left(gen_tab, 'Print Label',lambda: button_print_label(recipient_fields))
-    gen_tab.set_col_cursor(3)
-    gen_tab.set_row_cursor(2)
-    add_button_left(gen_tab, 'Clear Recipient',lambda: clear_fields(recipient_fields))
-
-    gen_tab.set_row_cursor(11)
-    gen_tab.set_col_cursor(1)
-
-    add_heading(gen_tab, 'Letter Preview')
-    field = add_preview_field(gen_tab, "test")
     button_ttp = CreatePreview(button, field, GEN_NotFiledLetter.return_preview())
     button2_ttp = CreatePreview(button2, field, GEN_NoCaseLetter.return_preview())
     button3_ttp = CreatePreview(button3, field, GEN_NoFormsLetter.return_preview())
 
-"___Jurisdictional Letters TAB___"
-def jur_tab(application):
-        jur_tab = application.app_tab_dict['Jurisdictional Letters']
-        add_heading(jur_tab, 'Recipient')
-        recipient_fields = PrisonerAddress()
-        add_gender_button(jur_tab, recipient_fields)
-        add_fields_from_list(jur_tab, recipient_fields)
-
-        add_heading(jur_tab, 'Templates')
+def add_jur_tab_buttons(tab, field, recipient_fields):
+    tab.set_col_cursor(0)
+    tab.set_row_cursor(12)
+    button = add_button_left(tab, 'Late Jurisdictional',
+            lambda: button_create_jur_letter(recipient_fields, "Late JUR"))
+    button2 = add_button_left(tab, 'Late Jur - Delayed Appeal Info',
+            lambda: button_create_jur_letter(recipient_fields, "Late JUR Delayed Appeal"))
+    #button3 = add_button_left(tab, 'Create No Forms Letter',
+            #lambda: button_create_gen_letter(recipient_fields, "No Forms"))
+    button_ttp = CreatePreview(button, field, GEN_LateJurLetter.return_preview())
+    button2_ttp = CreatePreview(button2, field, GEN_LateJurDelayedAppealLetter.return_preview())
+    #button3_ttp = CreatePreview(button3, field, GEN_NoFormsLetter.return_preview())
