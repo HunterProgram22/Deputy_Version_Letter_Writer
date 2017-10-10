@@ -128,7 +128,7 @@ class GEN_NoFormsLetter(GEN_Letter):
         return NOFORMS_TEMPLATE
 
 
-class GEN_LateJurLetter(GEN_Letter):
+class JUR_LateJurLetter(GEN_Letter):
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = LATEJUR_TEMPLATE
@@ -138,7 +138,7 @@ class GEN_LateJurLetter(GEN_Letter):
         return LATEJUR_TEMPLATE
 
 
-class GEN_LateJurDelayedAppealLetter(GEN_Letter):
+class JUR_LateJurDelayedAppealLetter(GEN_Letter):
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = LATEJUR_DAF_TEMPLATE
@@ -148,7 +148,7 @@ class GEN_LateJurDelayedAppealLetter(GEN_Letter):
         return LATEJUR_DAF_TEMPLATE
 
 
-class GEN_TimelyJurMissingDocsLetter(GEN_Letter):
+class JUR_TimelyJurMissingDocsLetter(GEN_Letter):
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = JUR_MISSINGDOCS_TEMPLATE

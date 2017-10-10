@@ -124,12 +124,12 @@ class AppWindow(ttk.Frame):
     """The main application window."""
     def __init__(self, master):
         self.tab_dict = TAB_DICT
+        self.app_tab_dict = {}
         self.master = master
         self.notebook = ttk.Notebook(self.master)
         self.notebook.grid(row=1, column=0, columnspan=50, sticky='NESW')
         self.set_style()
         self.menu = AppMenu(self.master)
-        self.app_tab_dict = {}
         for key, value in self.tab_dict.items():
                 if key == 'AOD Letters':
                     self.tab = TabWindow(self.notebook)
