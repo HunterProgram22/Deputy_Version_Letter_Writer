@@ -87,11 +87,10 @@ def add_field(master, label, variable):
     master.row_cursor += 1
 
 def add_text_field(master, text):
-    """Adds a multiline text entry field."""
-    Label(master, text=text).grid(row=master.row_cursor, column=0,
-                    sticky=W, padx=10, pady=5)
+    label = Label(master, text=text)
+    label.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=5)
     master.text_field = Text(master, width=40, height=10, wrap=WORD)
-    master.text_field.grid(row=master.row_cursor, column=1, columnspan=2, pady=5)
+    master.text_field.grid(row=master.row_cursor, column=master.col_cursor+1, columnspan=2, pady=5)
     master.text_field.insert("1.0", "")
     master.row_cursor += 1
 
@@ -106,7 +105,6 @@ def add_preview_field(master):
     master.row_cursor += 1
     return widget
 
-
 # def add_radio_button_yes_no(master, question):
 #     """ Initializes a radio button to answer yes or no to a statement."""
 #     #master.variable = variable
@@ -120,9 +118,7 @@ def add_preview_field(master):
 #     Radiobutton(master, text="No", variable=master.variable, value=2).grid(
 #                 row=self.row_cursor, column=1, sticky=W)
 #     master.row_cursor += 1
-
 """***End of Control Functions for Creating Widgets***"""
-
 
 class AppWindow(ttk.Frame):
     """The main application window."""
@@ -130,7 +126,7 @@ class AppWindow(ttk.Frame):
         self.tab_dict = TAB_DICT
         self.master = master
         self.notebook = ttk.Notebook(self.master)
-        self.notebook.grid(row=1, column=0, columnspan=50, rowspan=49, sticky='NESW')
+        self.notebook.grid(row=1, column=0, columnspan=50, sticky='NESW')
         self.set_style()
         self.menu = AppMenu(self.master)
         self.app_tab_dict = {}
@@ -169,7 +165,7 @@ class AppMenu(ttk.Frame):
         for item in self.db:
             self.edit_templates.add_command(label=item['name'], command=partial(open_doc, TEMPLATE_PATH + item['docpath']))
         self.menu.add_cascade(label="File", menu=self.file)
-        self.menu.add_cascade(label="Print", menu=self.printdoc)
+        self.menu.add_cascade(label="Forms", menu=self.printdoc)
         self.menu.add_cascade(label="Edit_Templates", menu=self.edit_templates)
 
 
@@ -195,6 +191,9 @@ class TabWindowPrisoner(TabWindow):
         TabWindow.__init__(self, master)
 
     def set_prison_field(self, field, model):
+        """This method is used in the add_fields_from_list function that is used
+        in the create_tab function which is called in Main. Perhaps refactor at
+        some point in future."""
         self.model = model
         # https://stackoverflow.com/questions/38312494/show-specific-value-in-textbox-according-to-combobox-selected-value-in-python
         self.prison_field = ttk.Combobox(self, textvariable=field[1],
