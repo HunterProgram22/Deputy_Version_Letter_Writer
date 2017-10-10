@@ -5,7 +5,7 @@ from DLW_Tabs import aod_tab, create_tab, add_gen_tab_buttons, add_jur_tab_butto
 
 
 def add_weight(widget):
-    """Add weight to a tkinter widget so that all aspects of the widget
+    """Add weight to widget so that all aspects of the widget
     are visible without scrolling."""
     rows = 0
     while rows < 50:
@@ -25,8 +25,8 @@ add_weight(root)
 
 """Create the main application widget that is placed on the root widget.
 This application is an instance of a AppWindow class that is a subclass
-of the tkinter Frame widget. The list of tabs is currently a constant in
-DLW_Views."""
+of the tkinter Frame widget. TAB_DICT is in DLW_VIEWS and provides name
+and order of tabs."""
 application = AppWindow(root)
 
 

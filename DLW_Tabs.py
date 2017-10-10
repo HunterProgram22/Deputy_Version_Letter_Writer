@@ -31,7 +31,7 @@ def aod_tab(application):
     aod_tab = application.app_tab_dict['AOD Letters']
     add_heading(aod_tab, 'Affiant')
     affiant_fields = Address()
-    add_gender_button(aod_tab, affiant_fields)
+    add_gender_radiobuttons(aod_tab, affiant_fields)
     add_fields_from_list(aod_tab, affiant_fields)
 
     add_heading(aod_tab, 'Case Information')
@@ -49,7 +49,7 @@ def aod_tab(application):
     add_heading(aod_tab, 'AOD Requirements')
     add_sub_heading(aod_tab, 'Check the items to include in affiant rejection letter.')
     aod_req_fields = AODRequirements()
-    add_multiple_checkboxes(aod_tab, aod_req_fields)
+    add_aodtab_checkboxes(aod_tab, aod_req_fields)
 
     aod_tab.set_row_cursor(8)
     add_button_left(aod_tab, 'Create Affiant Letter',
@@ -79,7 +79,7 @@ def create_tab(application, tab_name):
         recipient_fields = PrisonerAddressJurDates()
     else:
         recipient_fields = PrisonerAddress()
-    add_gender_button(tab, recipient_fields)
+    add_gender_radiobuttons(tab, recipient_fields)
     add_fields_from_list(tab, recipient_fields)
     tab.set_row_cursor(11)
     tab.set_col_cursor(0)

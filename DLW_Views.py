@@ -8,76 +8,82 @@ from DLW_Models import PrisonerAddress
 from tinydb import TinyDB, Query
 from functools import partial
 
-BTNWIDTH = 20
-FAQ = 'S:\\AOD\\AOD_Test\\FAQ.docx'
-COA = 'S:\\AOD\\AOD_Test\\COA.docx'
-AFP = 'S:\\AOD\\AOD_Test\\AFP.docx' #Not currently in folder
-TAB_DICT = {'Jurisdictional Letters': 0, 'General Letters': 1, 'Original Action Letters': 2,
-'Timeliness Letters': 3, 'AOD Letters': 4,}
+BTN_WIDTH = 20
+HEADING_FONT = "Times 12 bold"
+SUBHEADING_FONT = "Times 8"
+
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
+FORMS_PATH = "S:\\Letter_Writer\\Forms\\"
+FAQ = FORMS_PATH + "FAQ.docx" #Frequently Asked Questions
+COA = FORMS_PATH + "COA.docx" #Change of Address
+AFP = FORMS_PATH + "AFP.docx" #Affidavit of Indigence
+
+TAB_DICT = {'Jurisdictional Letters': 0, 'General Letters': 1,
+'Original Action Letters': 2, 'Timeliness Letters': 3, 'AOD Letters': 4,}
 
 
 """___Control Functions for Creating Widgets___"""
 def add_heading(master, heading):
-    ttk.Label(master, text=heading, width=30, font="Times 12 bold").grid(
-                row=master.row_cursor, column=master.col_cursor, columnspan=2, sticky=W,
-                pady=10, padx=5)
+    heading = ttk.Label(master, text=heading, width=30, font=HEADING_FONT)
+    heading.grid(row=master.row_cursor, column=master.col_cursor, columnspan=2,
+            sticky=W, pady=10, padx=5)
     master.row_cursor += 1
 
 def add_sub_heading(master, subheading):
-    ttk.Label(master, text=subheading, width=50, font="Times 8").grid(
-                    row=master.row_cursor, column=master.col_cursor, columnspan=2,
-                    pady=5, padx=20)
+    subheading = ttk.Label(master, text=subheading, width=50, font=SUBHEADING_FONT)
+    subheading.grid(row=master.row_cursor, column=master.col_cursor, columnspan=2,
+            pady=5, padx=20)
     master.row_cursor += 1
 
-def add_gender_button(master, model):
-    Radiobutton(master, text="Mr.", variable=model.gender, value=1).grid(
-                    row=master.row_cursor, column=0, sticky=E)
-    Radiobutton(master, text="Ms.", variable=model.gender, value=2).grid(
-                    row=master.row_cursor, column=1, sticky=W)
+def add_gender_radiobuttons(master, model):
+    male_button = Radiobutton(master, text="Mr.", variable=model.gender, value=1)
+    male_button.grid(row=master.row_cursor, column=master.col_cursor, sticky=E)
+    female_button = Radiobutton(master, text="Ms.", variable=model.gender, value=2)
+    female_button.grid(row=master.row_cursor, column=master.col_cursor+1, sticky=W)
     master.row_cursor += 1
 
-def add_multiple_checkboxes(master, model):
-    """ Initializes the requirements for a particular letter/tab. """
-    for field in model.return_requirements_list():
-        Checkbutton(master, text=field[0], variable=field[1]).grid(
-                row=master.row_cursor, column=master.col_cursor, sticky=W)
+def add_aodtab_checkboxes(master, aod_requirements_model):
+    for field in aod_requirements_model.return_requirements_list():
+        box = Checkbutton(master, text=field[0], variable=field[1])
+        box.grid(row=master.row_cursor, column=master.col_cursor, sticky=W)
         master.row_cursor += 1
 
 def add_button_right(master, button_name, button_command):
-    button = ttk.Button(master, text=button_name, command=button_command, width=BTNWIDTH, style="Emergency.TButton")
+    button = ttk.Button(master, text=button_name, command=button_command, width=BTN_WIDTH, style="Blue.TButton")
     button.grid(row=master.row_cursor, column=master.col_cursor, sticky=E, padx=10, pady=3)
     master.row_cursor += 1
     return button
 
 def add_button_left(master, button_name, button_command):
-    button = ttk.Button(master, text=button_name, command=button_command, width=BTNWIDTH, style="Emergency.TButton")
+    button = ttk.Button(master, text=button_name, command=button_command, width=BTN_WIDTH, style="Blue.TButton")
     button.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=3)
     master.row_cursor += 1
     return button
 
 def add_fields_from_list(master, model):
+    """row_count is used to move fields to the next column when they exceed
+    the number of rows available."""
     fields = model.return_data_fields()
-    count = 0
+    row_count = 0
     for field in fields:
-        if count == 9:
+        if row_count == 9:
             master.set_row_cursor(3)
             master.set_col_cursor (2)
-        Label(master, text=field[0]).grid(row=master.row_cursor, column=master.col_cursor,
-            sticky=W, padx=10, pady=5)
+        label = Label(master, text=field[0])
+        label.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=5)
         if field[0] == 'Institution':
             master.set_prison_field(field, model)
         else:
-            Entry(master, textvariable=field[1], width=20).grid(row=master.row_cursor,
-                    column=master.col_cursor+1, pady=5)
+            entry = Entry(master, textvariable=field[1], width=20)
+            entry.grid(row=master.row_cursor, column=master.col_cursor+1, pady=5)
         master.row_cursor += 1
-        count +=1
+        row_count +=1
 
 def add_field(master, label, variable):
-    Label(master, text=label).grid(row=master.row_cursor, column=master.col_cursor,
-            sticky=W, padx=10, pady=5)
-    Entry(master, textvariable=variable, width=20).grid(row=master.row_cursor,
-                    column=master.col_cursor+1, pady=5)
+    label = Label(master, text=label)
+    label.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=5)
+    entry = Entry(master, textvariable=variable, width=20)
+    entry.grid(row=master.row_cursor, column=master.col_cursor+1, pady=5)
     master.row_cursor += 1
 
 def add_text_field(master, text):
@@ -140,7 +146,7 @@ class AppWindow(ttk.Frame):
         """Sets the style for objects on the application. Can add new styles in
         this method and they will apply to entire application."""
         self.style = ttk.Style()
-        self.style.configure('Emergency.TButton', font='helvetica 8', foreground='blue', padding=5)
+        self.style.configure('Blue.TButton', font='helvetica 8', foreground='blue', padding=5)
 
 
 class AppMenu(ttk.Frame):
