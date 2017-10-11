@@ -77,23 +77,6 @@ class PrisonerAddressJurDates(PrisonerAddress):
         self.data_fields.append(('Documents Received Date', self.document_received_date))
 
 
-class AttorneyAddress(Address):
-    """ A subclass model object of the Address class that also includes a
-    field for attorney number. """
-    def __init__(self):
-        Address.__init__(self)
-        self.atty_number = StringVar()
-        self.data_fields.insert(2, ('Attorney Number', self.atty_number))
-
-
-class POLAttorneyAddress(AttorneyAddress):
-    """ A subclass model object of the AttorneyAddress class that removes
-    all fields except name and attorney number."""
-    def __init__(self):
-        AttorneyAddress.__init__(self)
-        del self.data_fields[3:]
-
-
 class CaseInformation(object):
     """ A class model object that includes the case name, case number,
     and court name of a case. """
@@ -112,28 +95,6 @@ class CaseInformation(object):
     def return_re_block(self):
         return 'Re: \t' + self.case_name.get() + ', ' + self.case_number.get() +\
                 ' ' + self.court_name.get()
-
-
-class POLCaseInformation(CaseInformation):
-    """ A subclass model object of the Case Information class that eliminates
-    case name in data field and adds fields for dates of court orders."""
-    def __init__(self):
-        CaseInformation.__init__(self)
-        del self.data_fields[2]
-        self.application_date = StringVar()
-        self.suspension_date = StringVar()
-        self.probation_period = StringVar()
-        self.reinstatement_date = StringVar()
-        self.report_date = StringVar()
-        self.suspension_description = StringVar()
-        self.data_fields.insert(2, ('Suspension Date', self.suspension_date))
-        self.data_fields.insert(3, ('Probation Period', self.probation_period))
-        self.data_fields.insert(4, ('Reinstatement Date', self.reinstatement_date))
-        self.data_fields.insert(5, ('Application (Petition) Date', self.application_date))
-        self.data_fields.insert(6, ('Board Report Date', self.report_date))
-
-    def return_re_block(self):
-        return 'Re: \t' + self.case_name.get() + ', ' + self.case_number.get()
 
 
 class Requirements(object):
