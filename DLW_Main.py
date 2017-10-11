@@ -47,7 +47,6 @@ gen_button_list = add_template_buttons(gen_tab, gen_recipient_fields,
         gen_tab_template_list)
 add_template_previews(gen_button_list, gen_preview_field)
 
-
 jur_tab, jur_preview_field, jur_recipient_fields = create_tab(application,
         'Jurisdictional Letters')
 jur_tab_template_list = [('Late Jur-No Delayed App.', JUR_LateJurLetter),
@@ -59,7 +58,15 @@ jur_button_list = add_template_buttons(jur_tab, jur_recipient_fields,
         jur_tab_template_list)
 add_template_previews(jur_button_list, jur_preview_field)
 
-
+daf_tab, daf_preview_field, daf_recipient_fields = create_tab(application,
+        'Delayed Appeal Letters')
+daf_tab_template_list = [('Delayed App.-No Opinion/JE', DAF_NoOpinionLetter),
+        ('Delayed App.-No Facts Aff.', DAF_NoFactsAffLetter)]
+daf_tab.set_col_cursor(0)
+daf_tab.set_row_cursor(12)
+daf_button_list = add_template_buttons(daf_tab, daf_recipient_fields,
+        daf_tab_template_list)
+add_template_previews(daf_button_list, daf_preview_field)
 
 oa_tab = create_tab(application, 'Original Action Letters')
 time_tab = create_tab(application, 'Timeliness Letters')

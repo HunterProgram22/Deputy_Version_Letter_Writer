@@ -72,6 +72,12 @@ def button_create_gen_letter(recipient_fields, letter_type):
     elif letter_type is JUR_TimelyJurMissingDocsLetter:
         fields = RecipientFieldsDataJurisdictional(recipient_fields)
         letter = JUR_TimelyJurMissingDocsLetter(fields)
+    elif letter_type is DAF_NoFactsAffLetter:
+        fields = RecipientFieldsData(recipient_fields)
+        letter = DAF_NoFactsAffLetter(fields)
+    elif letter_type is DAF_NoOpinionLetter:
+        fields = RecipientFieldsData(recipient_fields)
+        letter = DAF_NoOpinionLetter(fields)
     else:
         fields = RecipientFieldsData(recipient_fields)
         letter = GEN_Letter(fields)

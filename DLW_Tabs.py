@@ -1,7 +1,7 @@
 from tkinter import END
 import tkinter as tk
 from DLW_Models import Address, JudgeAddress, CaseInformation, \
-    AttorneyAddress, AODRequirements, PrisonerAddress, PrisonerAddressJurDates
+    AODRequirements, PrisonerAddress, PrisonerAddressJurDates
 from DLW_Views import add_heading, add_sub_heading, add_fields_from_list, \
     add_aodtab_checkboxes, add_gender_radiobuttons, add_button_left, add_button_right, \
     add_preview_field

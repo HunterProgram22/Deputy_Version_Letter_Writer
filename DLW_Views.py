@@ -18,8 +18,9 @@ FAQ = FORMS_PATH + "FAQ.docx" #Frequently Asked Questions
 COA = FORMS_PATH + "COA.docx" #Change of Address
 AFP = FORMS_PATH + "AFP.docx" #Affidavit of Indigence
 
-TAB_DICT = {'Jurisdictional Letters': 0, 'General Letters': 1,
-'Original Action Letters': 2, 'Timeliness Letters': 3, 'AOD Letters': 4,}
+TAB_DICT = {'Delayed Appeal Letters': 0, 'Jurisdictional Letters': 1,
+        'General Letters': 2, 'Original Action Letters': 3,
+        'Timeliness Letters': 4, 'AOD Letters': 5,}
 
 
 """___Control Functions for Creating Widgets___"""
