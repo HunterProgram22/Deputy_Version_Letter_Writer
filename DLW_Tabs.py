@@ -6,7 +6,7 @@ from DLW_Views import add_heading, add_sub_heading, add_fields_from_list, \
     add_aodtab_checkboxes, add_gender_radiobuttons, add_button_left, add_button_right, \
     add_preview_field
 from DLW_Controller import *
-from Tool_Tips import *
+
 
 
 class CreatePreview(object):

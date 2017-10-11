@@ -12,5 +12,9 @@ db.insert({'name': 'NoForms_Template', 'docpath': 'NoForms_Template.docx'})
 db.insert({'name': 'LateJur_Template', 'docpath': 'LateJur_Template.docx'})
 db.insert({'name': 'LateJurDelayedAppeal_Template', 'docpath': 'LateJurDelayedAppeal_Template.docx'})
 db.insert({'name': 'JurMissingDocs_Template', 'docpath': 'JurMissingDocs_Template.docx'})
+db.insert({'name': 'DafNoFacts_Template', 'docpath': 'DafNoFacts_Template.docx'})
+db.insert({'name': 'DafNoOpinion_Template', 'docpath': 'DafNoOpinion_Template.docx'})
+
+
 
 db.close()

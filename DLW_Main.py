@@ -60,8 +60,8 @@ add_template_previews(jur_button_list, jur_preview_field)
 
 daf_tab, daf_preview_field, daf_recipient_fields = create_tab(application,
         'Delayed Appeal Letters')
-daf_tab_template_list = [('Delayed App.-No Opinion/JE', DAF_NoOpinionLetter),
-        ('Delayed App.-No Facts Aff.', DAF_NoFactsAffLetter)]
+daf_tab_template_list = [('Delayed App-No Opinion', DAF_NoOpinionLetter),
+        ('Delayed App-No FactsAff', DAF_NoFactsAffLetter)]
 daf_tab.set_col_cursor(0)
 daf_tab.set_row_cursor(12)
 daf_button_list = add_template_buttons(daf_tab, daf_recipient_fields,
