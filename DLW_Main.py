@@ -1,8 +1,7 @@
 from tkinter import Tk, E
 import tkinter.ttk as ttk
 from DLW_Views import AppWindow
-from DLW_Tabs import aod_tab, create_tab, \
-    add_template_buttons, add_template_previews
+from DLW_Tabs import aod_tab, create_tab, add_template_buttons, add_template_previews
 from DLW_Controller import *
 
 
@@ -51,7 +50,7 @@ add_template_previews(gen_button_list, gen_preview_field)
 
 jur_tab, jur_preview_field, jur_recipient_fields = create_tab(application,
         'Jurisdictional Letters')
-jur_tab_template_list = [('Late Jur-No Delayed Appeal', JUR_LateJurLetter),
+jur_tab_template_list = [('Late Jur-No Delayed App.', JUR_LateJurLetter),
         ('Late Jur-Delayed Appeal', JUR_LateJurDelayedAppealLetter),
         ('Timely Jur-Missing Docs', JUR_TimelyJurMissingDocsLetter)]
 jur_tab.set_col_cursor(0)
