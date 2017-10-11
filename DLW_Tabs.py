@@ -95,28 +95,14 @@ def create_tab(application, tab_name):
     add_button_left(tab, 'Clear Recipient',lambda: clear_fields(recipient_fields))
     return (tab, preview_field, recipient_fields)
 
-def add_gen_tab_buttons(tab, preview_field, recipient_fields):
-    tab.set_col_cursor(0)
-    tab.set_row_cursor(12)
-    button = add_button_left(tab, 'Create Not Filed Letter',
-            lambda: button_create_gen_letter(recipient_fields, GEN_NotFiledLetter))
-    button2 = add_button_left(tab, 'Create No Case Letter',
-            lambda: button_create_gen_letter(recipient_fields, GEN_NoCaseLetter))
-    button3 = add_button_left(tab, 'Create No Forms Letter',
-            lambda: button_create_gen_letter(recipient_fields, GEN_NoFormsLetter))
-    button_ttp = CreatePreview(button, preview_field, GEN_NotFiledLetter.return_preview())
-    button2_ttp = CreatePreview(button2, preview_field, GEN_NoCaseLetter.return_preview())
-    button3_ttp = CreatePreview(button3, preview_field, GEN_NoFormsLetter.return_preview())
+def add_template_buttons(tab, recipient_fields, template_list):
+    button_list = []
+    for template in template_list:
+        button = add_button_left(tab, template[0], lambda: button_create_gen_letter(
+                recipient_fields, template[1]))
+        button_list.append((button, template[1]))
+    return button_list
 
-def add_jur_tab_buttons(tab, preview_field, recipient_fields):
-    tab.set_col_cursor(0)
-    tab.set_row_cursor(12)
-    button = add_button_left(tab, 'Late Jurisdictional',
-            lambda: button_create_jur_letter(recipient_fields, JUR_LateJurLetter))
-    button2 = add_button_left(tab, 'Late Jur - Delayed Appeal Info',
-            lambda: button_create_jur_letter(recipient_fields, JUR_LateJurDelayedAppealLetter))
-    button3 = add_button_left(tab, 'Timely Jur - Missing Documents',
-            lambda: button_create_jur_letter(recipient_fields, JUR_TimelyJurMissingDocsLetter))
-    button_ttp = CreatePreview(button, preview_field, JUR_LateJurLetter.return_preview())
-    button2_ttp = CreatePreview(button2, preview_field, JUR_LateJurDelayedAppealLetter.return_preview())
-    button3_ttp = CreatePreview(button3, preview_field, JUR_TimelyJurMissingDocsLetter.return_preview())
+def add_template_previews(button_list, preview_field):
+    for button in button_list:
+        CreatePreview(button[0], preview_field, button[1].return_preview())

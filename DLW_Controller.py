@@ -54,28 +54,26 @@ def button_create_judge_letter(affiant_fields, case_information_fields,
     letter.create_letter()
 
 def button_create_gen_letter(recipient, letter_type):
-    """Make this function a dictionary??"""
-    fields = gen_return_field_values(recipient)
     if letter_type is GEN_NotFiledLetter:
+        fields = gen_return_field_values(recipient)
         letter = GEN_NotFiledLetter(fields)
     elif letter_type is GEN_NoCaseLetter:
+        fields = gen_return_field_values(recipient)
         letter = GEN_NoCaseLetter(fields)
     elif letter_type is GEN_NoFormsLetter:
+        fields = gen_return_field_values(recipient)
         letter = GEN_NoFormsLetter(fields)
-    else:
-        letter = GEN_Letter(fields)
-    letter.create_letter()
-
-def button_create_jur_letter(recipient, letter_type):
-    """Make this function a dictionary??"""
-    fields = jur_return_field_values(recipient)
-    if letter_type is JUR_LateJurLetter:
+    elif letter_type is JUR_LateJurLetter:
+        fields = jur_return_field_values(recipient)
         letter = JUR_LateJurLetter(fields)
     elif letter_type is JUR_LateJurDelayedAppealLetter:
+        fields = jur_return_field_values(recipient)
         letter = JUR_LateJurDelayedAppealLetter(fields)
     elif letter_type is JUR_TimelyJurMissingDocsLetter:
+        fields = jur_return_field_values(recipient)
         letter = JUR_TimelyJurMissingDocsLetter(fields)
     else:
+        fields = gen_return_field_values(recipient)
         letter = GEN_Letter(fields)
     letter.create_letter()
 
