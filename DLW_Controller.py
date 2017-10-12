@@ -6,7 +6,6 @@ from DLW_Models import *
 from DLW_Labels import print_label
 
 DATE_LETTER = time.strftime("%B %d, %Y")
-DATE_FILENAME = time.strftime("%m-%d-%y")
 
 def open_blank_file():
     os.startfile(TEMPLATE)
