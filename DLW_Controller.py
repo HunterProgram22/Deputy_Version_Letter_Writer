@@ -72,6 +72,14 @@ def button_create_gen_letter(*args):
         letter = DAF_NoFactsAffLetter(fields)
     elif letter_type is DAF_NoOpinionLetter:
         letter = DAF_NoOpinionLetter(fields)
+    elif letter_type is OA_NoAddressLetter:
+        letter = OA_NoAddressLetter(fields)
+    elif letter_type is OA_NotNotarizedLetter:
+        letter = OA_NotNotarizedLetter(fields)
+    elif letter_type is OA_NoSecurityDepositLetter:
+        letter = OA_NoSecurityDepositLetter(fields)
+    elif letter_type is OA_NoAddNoSecDepNoAffLetter:
+        letter = OA_NoAddNoSecDepNoAffLetter(fields)
     else:
         letter = GEN_Letter(fields)
     letter.create_letter()

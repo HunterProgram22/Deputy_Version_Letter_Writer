@@ -19,6 +19,10 @@ LATEJUR_DAF_TEMPLATE = TEMPLATE_PATH + 'LateJurDelayedAppeal_Template.docx'
 JUR_MISSINGDOCS_TEMPLATE = TEMPLATE_PATH + 'JurMissingDocs_Template.docx'
 DAF_NOFACTS_TEMPLATE = TEMPLATE_PATH + 'DafNoFacts_Template.docx'
 DAF_NOOPINION_TEMPLATE = TEMPLATE_PATH + 'DafNoOpinion_Template.docx'
+OA_NOSECDEP_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoSecurityDeposit_Template.docx'
+OA_NOADD_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddress_Template.docx'
+OA_NOTNOTARIZED_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNotNotarized_Template.docx'
+OA_NOADDSECDEPAFF_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddNoSecDepNoAff_Template.docx'
 
 DATE_LETTER = time.strftime("%B %d, %Y")
 
@@ -341,3 +345,43 @@ class DAF_NoFactsAffLetter(GEN_Letter):
     @classmethod
     def get_template(cls):
         return DAF_NOFACTS_TEMPLATE
+
+
+class OA_NoAddressLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = OA_NOADD_TEMPLATE
+
+    @classmethod
+    def get_template(cls):
+        return OA_NOADD_TEMPLATE
+
+
+class OA_NotNotarizedLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = OA_NOTNOTARIZED_TEMPLATE
+
+    @classmethod
+    def get_template(cls):
+        return OA_NOTNOTARIZED_TEMPLATE
+
+
+class OA_NoSecurityDepositLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = OA_NOSECDEP_TEMPLATE
+
+    @classmethod
+    def get_template(cls):
+        return OA_NOSECDEP_TEMPLATE
+
+
+class OA_NoAddNoSecDepNoAffLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = OA_NOADDSECDEPAFF_TEMPLATE
+
+    @classmethod
+    def get_template(cls):
+        return OA_NOADDSECDEPAFF_TEMPLATE

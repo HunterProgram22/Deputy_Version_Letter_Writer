@@ -11,6 +11,7 @@ from functools import partial
 
 BTN_WIDTH = 20
 HEADING_FONT = "Times 12 bold"
+HEADING_WIDTH = 30
 SUBHEADING_FONT = "Times 8"
 
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
@@ -19,17 +20,14 @@ FAQ = FORMS_PATH + "FAQ.docx" #Frequently Asked Questions
 COA = FORMS_PATH + "COA.docx" #Change of Address
 AFP = FORMS_PATH + "AFP.docx" #Affidavit of Indigence
 
-TAB_DICT = {'Delayed Appeal Letters': 0, 'Jurisdictional Letters': 1,
-        'General Letters': 2, 'Original Action Letters': 3,
+TAB_DICT = {'Delayed Appeals': 0, 'Jurisdictionals': 1,
+        'General Letters': 2, 'Original Actions': 3,
         'Timeliness Letters': 4, 'AOD Letters': 5,}
-
-
-
 
 
 """___Control Functions for Creating Widgets___"""
 def add_heading(master, heading):
-    heading = ttk.Label(master, text=heading, width=30, font=HEADING_FONT)
+    heading = ttk.Label(master, text=heading, width=HEADING_WIDTH, font=HEADING_FONT)
     heading.grid(row=master.row_cursor, column=master.col_cursor, columnspan=2,
             sticky=W, pady=10, padx=5)
     master.row_cursor += 1
@@ -169,9 +167,9 @@ def create_tab(application, tab_name):
     add_heading(tab, 'Letter Preview')
     preview_field = add_preview_field(tab)
     tab.set_col_cursor(2), tab.set_row_cursor(2)
-    add_button_left(tab, 'Print Label',lambda: button_print_label(recipient_fields))
+    add_button_left(tab, 'Print Label', lambda: button_print_label(recipient_fields))
     tab.set_col_cursor(3), tab.set_row_cursor(2)
-    add_button_left(tab, 'Clear Recipient',lambda: clear_fields(recipient_fields))
+    add_button_left(tab, 'Clear Recipient', lambda: clear_fields(recipient_fields))
     return (tab, preview_field, recipient_fields)
 
 def add_template_buttons(tab, recipient_fields, template_list):
