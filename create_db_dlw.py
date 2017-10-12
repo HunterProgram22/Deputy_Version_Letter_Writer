@@ -14,7 +14,10 @@ db.insert({'name': 'LateJurDelayedAppeal_Template', 'docpath': 'LateJurDelayedAp
 db.insert({'name': 'JurMissingDocs_Template', 'docpath': 'JurMissingDocs_Template.docx'})
 db.insert({'name': 'DafNoOpinion_Template', 'docpath': 'DafNoOpinion_Template.docx'})
 db.insert({'name': 'DafNoFacts_Template', 'docpath': 'DafNoFacts_Template.docx'})
-
+db.insert({'name': 'OriginalActionNoSecurityDeposit_Template', 'docpath': 'OriginalActionNoSecurityDeposit_Template.docx'})
+db.insert({'name': 'OriginalActionNoAddress_Template', 'docpath': 'OriginalActionNoAddress_Template.docx'})
+db.insert({'name': 'OriginalActionNotNotarized_Template', 'docpath': 'OriginalActionNotNotarized_Template.docx'})
+db.insert({'name': 'OriginalActionNoAddNoSecDepNoAff_Template', 'docpath': 'OriginalActionNoAddNoSecDepNoAff_Template.docx'})
 
 
 db.close()

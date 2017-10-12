@@ -72,7 +72,10 @@ class Address(object):
         else:
             self.field_values["Prefix"] = "Ms."
         for item in self.data_fields:
-            self.field_values[item[0]] = item[1].get()
+            if item[1].get() == "None":
+                self.field_values[item[0]] = ""
+            else:
+                self.field_values[item[0]] = item[1].get()
         return self.field_values
 
 
