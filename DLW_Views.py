@@ -149,7 +149,7 @@ def create_aod_tab(application):
     add_button_right(aod_tab, 'Clear Judge', lambda: clear_fields(judge_fields))
 
 def return_recipient_fields(tab_name):
-    if tab_name == 'Jurisdictional Letters':
+    if tab_name == 'Jurisdictionals':
         return PrisonerAddressJurDates()
     else:
         return PrisonerAddress()

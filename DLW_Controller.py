@@ -56,32 +56,7 @@ def button_create_gen_letter(*args):
     recipient_fields = args[0]
     fields = recipient_fields.get_data_in_data_fields()
     letter_type = args[1]
-    if letter_type is GEN_NotFiledLetter:
-        letter = GEN_NotFiledLetter(fields)
-    elif letter_type is GEN_NoCaseLetter:
-        letter = GEN_NoCaseLetter(fields)
-    elif letter_type is GEN_NoFormsLetter:
-        letter = GEN_NoFormsLetter(fields)
-    elif letter_type is JUR_LateJurLetter:
-        letter = JUR_LateJurLetter(fields)
-    elif letter_type is JUR_LateJurDelayedAppealLetter:
-        letter = JUR_LateJurDelayedAppealLetter(fields)
-    elif letter_type is JUR_TimelyJurMissingDocsLetter:
-        letter = JUR_TimelyJurMissingDocsLetter(fields)
-    elif letter_type is DAF_NoFactsAffLetter:
-        letter = DAF_NoFactsAffLetter(fields)
-    elif letter_type is DAF_NoOpinionLetter:
-        letter = DAF_NoOpinionLetter(fields)
-    elif letter_type is OA_NoAddressLetter:
-        letter = OA_NoAddressLetter(fields)
-    elif letter_type is OA_NotNotarizedLetter:
-        letter = OA_NotNotarizedLetter(fields)
-    elif letter_type is OA_NoSecurityDepositLetter:
-        letter = OA_NoSecurityDepositLetter(fields)
-    elif letter_type is OA_NoAddNoSecDepNoAffLetter:
-        letter = OA_NoAddNoSecDepNoAffLetter(fields)
-    else:
-        letter = GEN_Letter(fields)
+    letter = letter_type(fields)
     letter.create_letter()
 
 def button_print_label(recipient):
@@ -141,12 +116,3 @@ def clear_affiant(affiant, aod_reqs):
 def clear_fields(fields):
     for field in fields.data_fields:
         field[1].set('')
-
-def clear_all():
-    pass
-
-def main():
-    pass
-
-if __name__ == '__main__':
-    main()
