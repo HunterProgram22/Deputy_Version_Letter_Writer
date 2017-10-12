@@ -6,7 +6,7 @@ from DLW_Views import add_heading, add_sub_heading, add_fields_from_list, \
     add_aodtab_checkboxes, add_gender_radiobuttons, add_button_left, add_button_right, \
     add_preview_field
 from DLW_Controller import *
-
+from functools import partial
 
 
 class CreatePreview(object):
@@ -94,7 +94,7 @@ def create_tab(application, tab_name):
 def add_template_buttons(tab, recipient_fields, template_list):
     button_list = []
     for template in template_list:
-        button = add_button_left(tab, template[0], lambda: button_create_gen_letter(
+        button = add_button_left(tab, template[0], partial(button_create_gen_letter,
                 recipient_fields, template[1]))
         button_list.append((button, template[1]))
     return button_list

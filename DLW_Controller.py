@@ -53,7 +53,9 @@ def button_create_judge_letter(affiant_fields, case_information_fields,
     letter = AOD_JudgeLetter(fields)
     letter.create_letter()
 
-def button_create_gen_letter(recipient_fields, letter_type):
+def button_create_gen_letter(*args):
+    recipient_fields = args[0]
+    letter_type = args[1]
     if letter_type is GEN_NotFiledLetter:
         fields = RecipientFieldsData(recipient_fields)
         letter = GEN_NotFiledLetter(fields)
