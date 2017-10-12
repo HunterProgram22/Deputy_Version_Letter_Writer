@@ -1,10 +1,11 @@
 from tkinter import Frame, Menu, W, E, Label, Entry, Radiobutton, Checkbutton, \
-    Button, Text, WORD
+    Button, Text, WORD, END
 import tkinter.ttk as ttk
-from DLW_Controller import open_blank_file, open_existing_AOD_file, open_existing_GEN_file, \
-    application_exit, print_doc, open_doc
+import tkinter as tk
+from DLW_Controller import *
 from DLW_Addresses import PRISON_LIST, PRISON_DB
-from DLW_Models import PrisonerAddress
+from DLW_Models import Address, JudgeAddress, CaseInformation, \
+    AODRequirements, PrisonerAddress, PrisonerAddressJurDates
 from tinydb import TinyDB, Query
 from functools import partial
 
@@ -21,6 +22,9 @@ AFP = FORMS_PATH + "AFP.docx" #Affidavit of Indigence
 TAB_DICT = {'Delayed Appeal Letters': 0, 'Jurisdictional Letters': 1,
         'General Letters': 2, 'Original Action Letters': 3,
         'Timeliness Letters': 4, 'AOD Letters': 5,}
+
+
+
 
 
 """___Control Functions for Creating Widgets___"""
@@ -105,6 +109,82 @@ def add_preview_field(master):
     widget.insert("1.0", "")
     master.row_cursor += 1
     return widget
+
+def create_aod_tab(application):
+    aod_tab = application.app_tab_dict['AOD Letters']
+    add_heading(aod_tab, 'Affiant')
+    affiant_fields = Address()
+    add_gender_radiobuttons(aod_tab, affiant_fields)
+    add_fields_from_list(aod_tab, affiant_fields)
+
+    add_heading(aod_tab, 'Case Information')
+    add_sub_heading(aod_tab, 'Applies to affiant and judge.')
+    case_information_fields = CaseInformation()
+    add_fields_from_list(aod_tab, case_information_fields)
+
+    add_heading(aod_tab, 'Judge')
+    judge_fields = JudgeAddress()
+    add_fields_from_list(aod_tab, judge_fields)
+
+    aod_tab.set_col_cursor(2)
+    aod_tab.set_row_cursor(0)
+    add_heading(aod_tab, 'AOD Requirements')
+    add_sub_heading(aod_tab, 'Check the items to include in affiant rejection letter.')
+    aod_req_fields = AODRequirements()
+    add_aodtab_checkboxes(aod_tab, aod_req_fields)
+
+    aod_tab.set_row_cursor(8)
+    add_button_left(aod_tab, 'Create Affiant Letter', lambda: button_create_affiant_letter(
+            affiant_fields, case_information_fields, judge_fields, aod_req_fields))
+    add_button_left(aod_tab, 'Print Affiant Label', lambda: button_print_label(affiant_fields))
+    aod_tab.set_row_cursor(14)
+    add_button_left(aod_tab, 'Create Judge Letter', lambda: button_create_judge_letter(
+            affiant_fields, case_information_fields, judge_fields, aod_req_fields))
+    add_button_left(aod_tab, 'Print Judge Label', lambda: button_print_label(judge_fields))
+    aod_tab.set_row_cursor(8)
+    add_button_right(aod_tab, 'Clear Affiant', lambda: clear_affiant(
+            affiant_fields, aod_req_fields))
+    aod_tab.set_row_cursor(11)
+    add_button_right(aod_tab, 'Clear Case Information', lambda: clear_fields(
+            case_information_fields))
+    aod_tab.set_row_cursor(14)
+    add_button_right(aod_tab, 'Clear Judge', lambda: clear_fields(judge_fields))
+
+def return_recipient_fields(tab_name):
+    if tab_name == 'Jurisdictional Letters':
+        return PrisonerAddressJurDates()
+    else:
+        return PrisonerAddress()
+
+def create_tab(application, tab_name):
+    """A generic tab for multiple templates with a preview window."""
+    tab = application.app_tab_dict[tab_name]
+    add_heading(tab, 'Recipient')
+    recipient_fields = return_recipient_fields(tab_name)
+    add_gender_radiobuttons(tab, recipient_fields)
+    add_fields_from_list(tab, recipient_fields)
+    tab.set_row_cursor(11), tab.set_col_cursor(0)
+    add_heading(tab, 'Templates')
+    tab.set_row_cursor(11), tab.set_col_cursor(1)
+    add_heading(tab, 'Letter Preview')
+    preview_field = add_preview_field(tab)
+    tab.set_col_cursor(2), tab.set_row_cursor(2)
+    add_button_left(tab, 'Print Label',lambda: button_print_label(recipient_fields))
+    tab.set_col_cursor(3), tab.set_row_cursor(2)
+    add_button_left(tab, 'Clear Recipient',lambda: clear_fields(recipient_fields))
+    return (tab, preview_field, recipient_fields)
+
+def add_template_buttons(tab, recipient_fields, template_list):
+    button_list = []
+    for template in template_list:
+        button = add_button_left(tab, template[0], partial(button_create_gen_letter,
+                recipient_fields, template[1]))
+        button_list.append((button, template[1]))
+    return button_list
+
+def add_template_previews(button_list, preview_field):
+    for button in button_list:
+        CreatePreview(button[0], preview_field, button[1].return_preview())
 
 # def add_radio_button_yes_no(master, question):
 #     """ Initializes a radio button to answer yes or no to a statement."""
@@ -210,3 +290,20 @@ class TabWindowPrisoner(TabWindow):
         self.model.city.set(prison['City'])
         self.model.state.set(prison['State'])
         self.model.zipcode.set(prison['Zipcode'])
+
+
+class CreatePreview(object):
+    """Create preview text for the letter when hovering on button."""
+    def __init__(self, widget, destination, text):
+        self.widget = widget
+        self.destination = destination
+        self.text = text
+        self.widget.bind("<Enter>", self.enter)
+        self.widget.bind("<Leave>", self.leave)
+        self.widget.bind("<ButtonPress>", self.leave)
+
+    def enter(self, event=None):
+        self.destination.insert("1.0", self.text)
+
+    def leave(self, event=None):
+        self.destination.delete("1.0", END)

@@ -1,7 +1,7 @@
 from tkinter import Tk, E
 import tkinter.ttk as ttk
-from DLW_Views import AppWindow
-from DLW_Tabs import aod_tab, create_tab, add_template_buttons, add_template_previews
+from DLW_Views import AppWindow, create_aod_tab, create_tab, add_template_buttons, \
+    add_template_previews
 from DLW_Controller import *
 
 
@@ -31,9 +31,9 @@ and order of tabs."""
 application = AppWindow(root)
 
 
-"""For each tab on the application widget create the content of that
-tab. Aod_tab has its own format different from other tabs."""
-aod_tab(application)
+"""Aod_tab has its own format different from other tabs and uses a specific
+function for creation."""
+create_aod_tab(application)
 
 """Create_tab returns a tuple of (tab, preview_field, recipient_fields)."""
 gen_tab, gen_preview_field, gen_recipient_fields = create_tab(application,
