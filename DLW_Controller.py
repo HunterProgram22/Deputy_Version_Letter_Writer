@@ -55,33 +55,25 @@ def button_create_judge_letter(affiant_fields, case_information_fields,
 
 def button_create_gen_letter(*args):
     recipient_fields = args[0]
+    fields = recipient_fields.get_data_in_data_fields()
     letter_type = args[1]
     if letter_type is GEN_NotFiledLetter:
-        fields = RecipientFieldsData(recipient_fields)
         letter = GEN_NotFiledLetter(fields)
     elif letter_type is GEN_NoCaseLetter:
-        fields = RecipientFieldsData(recipient_fields)
         letter = GEN_NoCaseLetter(fields)
     elif letter_type is GEN_NoFormsLetter:
-        fields = RecipientFieldsData(recipient_fields)
         letter = GEN_NoFormsLetter(fields)
     elif letter_type is JUR_LateJurLetter:
-        fields = RecipientFieldsDataJurisdictional(recipient_fields)
         letter = JUR_LateJurLetter(fields)
     elif letter_type is JUR_LateJurDelayedAppealLetter:
-        fields = RecipientFieldsDataJurisdictional(recipient_fields)
         letter = JUR_LateJurDelayedAppealLetter(fields)
     elif letter_type is JUR_TimelyJurMissingDocsLetter:
-        fields = RecipientFieldsDataJurisdictional(recipient_fields)
         letter = JUR_TimelyJurMissingDocsLetter(fields)
     elif letter_type is DAF_NoFactsAffLetter:
-        fields = RecipientFieldsData(recipient_fields)
         letter = DAF_NoFactsAffLetter(fields)
     elif letter_type is DAF_NoOpinionLetter:
-        fields = RecipientFieldsData(recipient_fields)
         letter = DAF_NoOpinionLetter(fields)
     else:
-        fields = RecipientFieldsData(recipient_fields)
         letter = GEN_Letter(fields)
     letter.create_letter()
 
@@ -108,7 +100,7 @@ def assemble_rejection_reasons(aod_req_fields):
     return string
 
 def aod_return_field_values(affiant, case_information, judge, aod_req_fields):
-    """This can potentially be made a subclass under RecipientFieldsData."""
+    """Look into making this the same as Gen Letters and use method under models."""
     field_values = {}
     if affiant.gender.get() == 1:
         field_values["prefix"] = "Mr."
@@ -132,43 +124,6 @@ def aod_return_field_values(affiant, case_information, judge, aod_req_fields):
     field_values["judge_zipcode"] = judge.zipcode.get()
     field_values["date"] = DATE_LETTER
     return field_values
-
-
-class RecipientFieldsData(object):
-    """The fields from a tab which contain the information to be inserted
-    into the letter."""
-    def __init__(self, recipient_fields):
-        self.field_values = {}
-        if recipient_fields.gender.get() == 1:
-            self.field_values["prefix"] = "Mr."
-        else:
-            self.field_values["prefix"] = "Ms."
-        self.field_values["first_name"] = recipient_fields.first_name.get()
-        self.field_values["last_name"] = recipient_fields.last_name.get()
-        self.field_values["inmate_number"] = recipient_fields.inmate_number.get()
-        self.field_values["prison"] = recipient_fields.prison.get()
-        self.field_values["address"] = recipient_fields.address.get()
-        if recipient_fields.address_2.get() == "None":
-            self.field_values["address2"] = ""
-        else:
-            self.field_values["address2"] = recipient_fields.address_2.get()
-        self.field_values["city"] = recipient_fields.city.get()
-        self.field_values["state"] = recipient_fields.state.get()
-        self.field_values["zipcode"] = recipient_fields.zipcode.get()
-        self.field_values["date"] = DATE_LETTER
-
-    def return_field_values(self):
-        return self.field_values
-
-
-class RecipientFieldsDataJurisdictional(RecipientFieldsData):
-    """Includes fields for entering due dates of items."""
-    def __init__(self, recipient_fields):
-        RecipientFieldsData.__init__(self, recipient_fields)
-        self.field_values["coa_decision_date"] = recipient_fields.coa_decision_date.get()
-        self.field_values["appeal_due_date"] = recipient_fields.appeal_due_date.get()
-        self.field_values["document_received_date"] = recipient_fields.document_received_date.get()
-
 
 def clear_affiant(affiant, aod_reqs):
     for field in affiant.data_fields:

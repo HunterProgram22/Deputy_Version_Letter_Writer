@@ -1,4 +1,7 @@
 from tkinter import StringVar, IntVar, Text
+import time
+
+DATE_LETTER = time.strftime("%B %d, %Y")
 
 class Address(object):
     """ A for creating a mailing address. """
@@ -36,6 +39,17 @@ class Address(object):
 
     def return_data_fields(self):
         return self.data_fields
+
+    def get_data_in_data_fields(self):
+        self.field_values = {}
+        self.field_values["Date"] = DATE_LETTER
+        if self.gender.get() == 1:
+            self.field_values["Prefix"] = "Mr."
+        else:
+            self.field_values["Prefix"] = "Ms."
+        for item in self.data_fields:
+            self.field_values[item[0]] = item[1].get()
+        return self.field_values
 
 
 class JudgeAddress(Address):

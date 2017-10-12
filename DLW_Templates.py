@@ -80,10 +80,10 @@ class AOD_JudgeLetter(Letter):
 class GEN_Letter(Letter):
     def __init__(self, fields):
         Letter.__init__(self, fields)
-        self.fields = fields.return_field_values()
+        self.fields = fields
         self.template = GEN_Letter.get_template()
-        self.docname = self.path + self.fields["last_name"] + ', ' +\
-            self.fields["first_name"] + " (" + self.fields["date"] + ")" +\
+        self.docname = self.path + self.fields["Last Name"] + ', ' +\
+            self.fields["First Name"] + " (" + self.fields["Date"] + ")" +\
             '.docx'
 
     @classmethod
