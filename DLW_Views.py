@@ -185,20 +185,8 @@ def add_template_previews(button_list, preview_field):
     for button in button_list:
         CreatePreview(button[0], preview_field, button[1].return_preview())
 
-# def add_radio_button_yes_no(master, question):
-#     """ Initializes a radio button to answer yes or no to a statement."""
-#     #master.variable = variable
-#     #master.variable.set(1)
-#     #ttk.Label(master, text=question, width=50, font="Times 10").grid(
-#                     row=master.row_cursor, column=master.col_cursor, columnspan=2,
-#                     pady=5, padx=20)
-#     master.row_cursor += 1
-#     Radiobutton(master, text="Yes", variable=master.variable, value=1).grid(
-#                 row=self.row_cursor, column=0, sticky=E)
-#     Radiobutton(master, text="No", variable=master.variable, value=2).grid(
-#                 row=self.row_cursor, column=1, sticky=W)
-#     master.row_cursor += 1
 """***End of Control Functions for Creating Widgets***"""
+
 
 class AppWindow(ttk.Frame):
     """The main application window."""
