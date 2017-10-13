@@ -17,6 +17,7 @@ NOFORMS_TEMPLATE = TEMPLATE_PATH + 'NoForms_Template.docx'
 LATEJUR_TEMPLATE = TEMPLATE_PATH + 'LateJur_Template.docx'
 LATEJUR_DAF_TEMPLATE = TEMPLATE_PATH + 'LateJurDelayedAppeal_Template.docx'
 JUR_MISSINGDOCS_TEMPLATE = TEMPLATE_PATH + 'JurMissingDocs_Template.docx'
+JUR_NOEXTENSION_TEMPLATE = TEMPLATE_PATH + 'JurNoExtension_Template.docx'
 DAF_NOFACTS_TEMPLATE = TEMPLATE_PATH + 'DafNoFacts_Template.docx'
 DAF_NOOPINION_TEMPLATE = TEMPLATE_PATH + 'DafNoOpinion_Template.docx'
 OA_NOSECDEP_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoSecurityDeposit_Template.docx'
@@ -318,6 +319,16 @@ class JUR_LateJurDelayedAppealLetter(GEN_Letter):
     @classmethod
     def get_template(cls):
         return LATEJUR_DAF_TEMPLATE
+
+
+class JUR_NoExtensionLetter(GEN_Letter):
+    def __init__(self, fields):
+        GEN_Letter.__init__(self, fields)
+        self.template = JUR_NOEXTENSION_TEMPLATE
+
+    @classmethod
+    def get_template(cls):
+        return JUR_NOEXTENSION_TEMPLATE
 
 
 class JUR_TimelyJurMissingDocsLetter(GEN_Letter):

@@ -49,9 +49,10 @@ add_template_previews(gen_button_list, gen_preview_field)
 
 jur_tab, jur_preview_field, jur_recipient_fields = create_tab(application,
         'Jurisdictionals')
-jur_tab_template_list = [('Late Jur-No Delayed App.', JUR_LateJurLetter),
-        ('Late Jur-Delayed Appeal', JUR_LateJurDelayedAppealLetter),
-        ('Timely Jur-Missing Docs', JUR_TimelyJurMissingDocsLetter)]
+jur_tab_template_list = [('Late-No Delayed Appeal', JUR_LateJurLetter),
+        ('Late-Delayed Appeal', JUR_LateJurDelayedAppealLetter),
+        ('No Extension-Delayed App.', JUR_NoExtensionLetter),
+        ('Timely-Missing Docs', JUR_TimelyJurMissingDocsLetter)]
 jur_tab.set_col_cursor(0)
 jur_tab.set_row_cursor(12)
 jur_button_list = add_template_buttons(jur_tab, jur_recipient_fields,

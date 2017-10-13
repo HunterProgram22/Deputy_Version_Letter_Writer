@@ -104,6 +104,7 @@ def add_preview_field(master):
     master.grid_rowconfigure(12, weight=1)
     master.grid_rowconfigure(13, weight=1)
     master.grid_rowconfigure(14, weight=1)
+    master.grid_rowconfigure(15, weight=1)
     widget.insert("1.0", "")
     master.row_cursor += 1
     return widget
