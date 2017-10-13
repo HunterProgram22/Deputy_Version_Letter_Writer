@@ -24,6 +24,7 @@ OA_NOSECDEP_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoSecurityDeposit_Template
 OA_NOADD_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddress_Template.docx'
 OA_NOTNOTARIZED_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNotNotarized_Template.docx'
 OA_NOADDSECDEPAFF_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddNoSecDepNoAff_Template.docx'
+DAP_PREMATUREBRIEF_TEMPLATE = TEMPLATE_PATH + 'DapPrematureBrief_Template.docx'
 
 DATE_LETTER = time.strftime("%B %d, %Y")
 
@@ -278,3 +279,6 @@ class OA_NoSecurityDepositLetter(GEN_Letter):
 
 class OA_NoAddNoSecDepNoAffLetter(GEN_Letter):
     template = OA_NOADDSECDEPAFF_TEMPLATE
+
+class DAP_PrematureBriefLetter(GEN_Letter):
+    template = DAP_PREMATUREBRIEF_TEMPLATE

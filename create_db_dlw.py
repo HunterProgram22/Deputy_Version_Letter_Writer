@@ -18,6 +18,6 @@ db.insert({'name': 'OriginalActionNoSecurityDeposit_Template', 'docpath': 'Origi
 db.insert({'name': 'OriginalActionNoAddress_Template', 'docpath': 'OriginalActionNoAddress_Template.docx'})
 db.insert({'name': 'OriginalActionNotNotarized_Template', 'docpath': 'OriginalActionNotNotarized_Template.docx'})
 db.insert({'name': 'OriginalActionNoAddNoSecDepNoAff_Template', 'docpath': 'OriginalActionNoAddNoSecDepNoAff_Template.docx'})
-
+db.insert({'name': 'DapPrematureBrief_Template', 'docpath': 'DapPrematureBrief_Template.docx'})
 
 db.close()

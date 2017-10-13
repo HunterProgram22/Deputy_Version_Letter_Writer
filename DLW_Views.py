@@ -20,9 +20,7 @@ FAQ = FORMS_PATH + "FAQ.docx" #Frequently Asked Questions
 COA = FORMS_PATH + "COA.docx" #Change of Address
 AFP = FORMS_PATH + "AFP.docx" #Affidavit of Indigence
 
-TAB_DICT = {'Delayed Appeals': 0, 'Jurisdictionals': 1,
-        'General Letters': 2, 'Original Actions': 3,
-        'Timeliness Letters': 4, 'AOD Letters': 5,}
+
 
 
 """___Control Functions for Creating Widgets___"""
@@ -190,8 +188,8 @@ def add_template_previews(button_list, preview_field):
 
 class AppWindow(ttk.Frame):
     """The main application window."""
-    def __init__(self, master):
-        self.tab_dict = TAB_DICT
+    def __init__(self, master, tabs_dict):
+        self.tab_dict = tabs_dict
         self.app_tab_dict = {}
         self.master = master
         self.notebook = ttk.Notebook(self.master)

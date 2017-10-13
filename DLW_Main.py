@@ -28,7 +28,12 @@ add_weight(root)
 This application is an instance of a AppWindow class that is a subclass
 of the tkinter Frame widget. TAB_DICT is in DLW_VIEWS and provides name
 and order of tabs."""
-application = AppWindow(root)
+
+TAB_DICT = {'Direct Appeals': 6, 'Delayed Appeals': 0, 'Jurisdictionals': 1,
+        'General Letters': 2, 'Original Actions': 3,
+        'Timeliness Letters': 4, 'AOD Letters': 5,}
+application = AppWindow(root, TAB_DICT)
+
 
 
 """Aod_tab has its own format different from other tabs and uses a specific
@@ -81,6 +86,16 @@ oa_tab.set_row_cursor(12)
 oa_button_list = add_template_buttons(oa_tab, oa_recipient_fields,
         oa_tab_template_list)
 add_template_previews(oa_button_list, oa_preview_field)
+
+dap_tab, dap_preview_field, dap_recipient_fields = create_tab(application,
+        'Direct Appeals')
+dap_tab_template_list = [('Premature Brief', DAP_PrematureBriefLetter),
+        ]
+dap_tab.set_col_cursor(0)
+dap_tab.set_row_cursor(12)
+dap_button_list = add_template_buttons(dap_tab, dap_recipient_fields,
+        dap_tab_template_list)
+add_template_previews(dap_button_list, dap_preview_field)
 
 time_tab = create_tab(application, 'Timeliness Letters')
 
