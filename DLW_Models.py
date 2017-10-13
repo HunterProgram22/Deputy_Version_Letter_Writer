@@ -275,77 +275,51 @@ class GEN_Letter(Letter):
 
 class GEN_NotFiledLetter(GEN_Letter):
     template = NOTFILED_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class GEN_NoCaseLetter(GEN_Letter):
     template = NOCASE_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class GEN_NoFormsLetter(GEN_Letter):
     template = NOFORMS_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class JUR_LateJurLetter(GEN_Letter):
     template = LATEJUR_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class JUR_LateJurDelayedAppealLetter(GEN_Letter):
     template = LATEJUR_DAF_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class JUR_NoExtensionLetter(GEN_Letter):
     template = JUR_NOEXTENSION_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class JUR_TimelyJurMissingDocsLetter(GEN_Letter):
     template = JUR_MISSINGDOCS_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class DAF_NoOpinionLetter(GEN_Letter):
     template = DAF_NOOPINION_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class DAF_NoFactsAffLetter(GEN_Letter):
     template = DAF_NOFACTS_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class OA_NoAddressLetter(GEN_Letter):
     template = OA_NOADD_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class OA_NotNotarizedLetter(GEN_Letter):
     template = OA_NOTNOTARIZED_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class OA_NoSecurityDepositLetter(GEN_Letter):
     template = OA_NOSECDEP_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
 
 
 class OA_NoAddNoSecDepNoAffLetter(GEN_Letter):
     template = OA_NOADDSECDEPAFF_TEMPLATE
-    def __init__(self, fields):
-        GEN_Letter.__init__(self, fields)
