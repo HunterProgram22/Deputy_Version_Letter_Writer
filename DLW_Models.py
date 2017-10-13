@@ -248,17 +248,19 @@ class AOD_JudgeLetter(Letter):
 
 
 class GEN_Letter(Letter):
+    template = GEN_TEMPLATE
+
     def __init__(self, fields):
         Letter.__init__(self, fields)
         self.fields = fields
-        self.template = GEN_Letter.get_template()
+        self.template = GEN_TEMPLATE
         self.docname = self.path + self.fields["Last Name"] + ', ' +\
             self.fields["First Name"] + " (" + self.fields["Date"] + ")" +\
             '.docx'
 
     @classmethod
     def get_template(cls):
-        return GEN_TEMPLATE
+        return cls.template
 
     @classmethod
     def return_preview(cls):
@@ -272,130 +274,91 @@ class GEN_Letter(Letter):
 
 
 class GEN_NotFiledLetter(GEN_Letter):
+    template = NOTFILED_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = NOTFILED_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return NOTFILED_TEMPLATE
-
 
 class GEN_NoCaseLetter(GEN_Letter):
+    template = NOCASE_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = NOCASE_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return NOCASE_TEMPLATE
-
 
 class GEN_NoFormsLetter(GEN_Letter):
+    template = NOFORMS_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = NOFORMS_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return NOFORMS_TEMPLATE
-
 
 class JUR_LateJurLetter(GEN_Letter):
+    template = LATEJUR_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = LATEJUR_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return LATEJUR_TEMPLATE
-
 
 class JUR_LateJurDelayedAppealLetter(GEN_Letter):
+    template = LATEJUR_DAF_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = LATEJUR_DAF_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return LATEJUR_DAF_TEMPLATE
-
 
 class JUR_NoExtensionLetter(GEN_Letter):
+    template = JUR_NOEXTENSION_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = JUR_NOEXTENSION_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return JUR_NOEXTENSION_TEMPLATE
-
 
 class JUR_TimelyJurMissingDocsLetter(GEN_Letter):
+    template = JUR_MISSINGDOCS_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = JUR_MISSINGDOCS_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return JUR_MISSINGDOCS_TEMPLATE
-
 
 class DAF_NoOpinionLetter(GEN_Letter):
+    template = DAF_NOOPINION_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = DAF_NOOPINION_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return DAF_NOOPINION_TEMPLATE
-
 
 class DAF_NoFactsAffLetter(GEN_Letter):
+    template = DAF_NOFACTS_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = DAF_NOFACTS_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return DAF_NOFACTS_TEMPLATE
-
 
 class OA_NoAddressLetter(GEN_Letter):
+    template = OA_NOADD_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = OA_NOADD_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return OA_NOADD_TEMPLATE
-
 
 class OA_NotNotarizedLetter(GEN_Letter):
+    template = OA_NOTNOTARIZED_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = OA_NOTNOTARIZED_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return OA_NOTNOTARIZED_TEMPLATE
-
 
 class OA_NoSecurityDepositLetter(GEN_Letter):
+    template = OA_NOSECDEP_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = OA_NOSECDEP_TEMPLATE
 
-    @classmethod
-    def get_template(cls):
-        return OA_NOSECDEP_TEMPLATE
-
 
 class OA_NoAddNoSecDepNoAffLetter(GEN_Letter):
+    template = OA_NOADDSECDEPAFF_TEMPLATE
     def __init__(self, fields):
         GEN_Letter.__init__(self, fields)
         self.template = OA_NOADDSECDEPAFF_TEMPLATE
-
-    @classmethod
-    def get_template(cls):
-        return OA_NOADDSECDEPAFF_TEMPLATE
