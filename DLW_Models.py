@@ -47,21 +47,6 @@ class Address(object):
                              ('Zipcode', self.zipcode),
                             ]
 
-    def return_address_block(self):
-        self.address_block = self.first_name.get() + ' ' + self.last_name.get() + '\n' +\
-                self.address.get() + '\n' + self.city.get() + ' ' + self.state.get() +\
-                ' ' + self.zipcode.get()
-        return self.address_block
-
-    def return_salutation_block(self):
-        if self.gender.get() == 1:
-            return 'Dear Mr. ' + self.last_name.get() + ':'
-        elif self.gender.get() == 2:
-            return 'Dear Ms. ' + self.last_name.get() + ':'
-
-    def return_cc_block(self):
-        return 'cc:  Hon. Judge ' + self.last_name.get()
-
     def return_data_fields(self):
         return self.data_fields
 
@@ -80,19 +65,6 @@ class Address(object):
         return self.field_values
 
 
-class JudgeAddress(Address):
-    """ A subclass model object of the Address class that overrides
-    fields for saluation and address block."""
-    def return_address_block(self):
-        self.address_block = 'Hon. Judge ' + self.last_name.get() + '\n' +\
-                        self.address.get() + '\n' + self.city.get() + ' ' + self.state.get() +\
-                        ' ' + self.zipcode.get()
-        return self.address_block
-
-    def return_salutation_block(self):
-        return 'Dear Judge ' + self.last_name.get() + ':'
-
-
 class PrisonerAddress(Address):
     """ A subclass model object of the Address class that also includes
     fields for prisoner number and institution. """
@@ -107,8 +79,7 @@ class PrisonerAddress(Address):
 
 
 class PrisonerAddressJurDates(PrisonerAddress):
-    """A subclass of the PrisonerAddress object that includes variables
-    for due dates."""
+    """A subclass object that includes fields/variables for new case due dates."""
     def __init__(self):
         PrisonerAddress.__init__(self)
         self.coa_decision_date = StringVar()
@@ -120,8 +91,6 @@ class PrisonerAddressJurDates(PrisonerAddress):
 
 
 class CaseInformation(object):
-    """ A class model object that includes the case name, case number,
-    and court name of a case. """
     def __init__(self):
         self.case_name = StringVar()
         self.case_number = StringVar()
@@ -134,24 +103,10 @@ class CaseInformation(object):
     def return_data_fields(self):
         return self.data_fields
 
-    def return_re_block(self):
-        return 'Re: \t' + self.case_name.get() + ', ' + self.case_number.get() +\
-                ' ' + self.court_name.get()
 
-
-class Requirements(object):
-    """An object that contains options for a user to select for inclusion
-    in a letter. The options are generally requirements that a filer failed
-    to comply with when submitting documents."""
-    def __init__(self, name=None):
-        self.name = name
-
-
-class AODRequirements(Requirements):
-    """A subclass of requirements model object specific to affidavits
-    of disqualification."""
+class AODRequirements(object):
+    """A class for checkbox requirements for AODs."""
     def __init__(self):
-        Requirements.__init__(self)
         self.cos_judge_variable = IntVar()
         self.cos_party_variable = IntVar()
         self.hearing_date_variable = IntVar()

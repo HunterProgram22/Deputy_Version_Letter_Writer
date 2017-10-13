@@ -4,7 +4,7 @@ import tkinter.ttk as ttk
 import tkinter as tk
 from DLW_Controller import *
 from DLW_Addresses import PRISON_LIST, PRISON_DB
-from DLW_Models import Address, JudgeAddress, CaseInformation, \
+from DLW_Models import Address, CaseInformation, \
     AODRequirements, PrisonerAddress, PrisonerAddressJurDates
 from tinydb import TinyDB, Query
 from functools import partial
@@ -122,7 +122,7 @@ def create_aod_tab(application):
     add_fields_from_list(aod_tab, case_information_fields)
 
     add_heading(aod_tab, 'Judge')
-    judge_fields = JudgeAddress()
+    judge_fields = Address()
     add_fields_from_list(aod_tab, judge_fields)
 
     aod_tab.set_col_cursor(2)

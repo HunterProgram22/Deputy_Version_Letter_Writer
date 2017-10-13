@@ -21,28 +21,39 @@ def print_label(address):
     selectPrinter = 'DYMO LabelWriter 450'
     labelCom.SelectPrinter(selectPrinter)
 
-    label_name = address.first_name.get() + ' ' + address.last_name.get() +\
-            ' ' + address.inmate_number.get()
-    label_institution = address.prison.get()
+    try:
+        label_name = address.first_name.get() + ' ' + address.last_name.get() +\
+                ' ' + address.inmate_number.get()
+        label_institution = address.prison.get()
+    except AttributeError:
+        label_name = address.first_name.get() + ' ' + address.last_name.get()
     first_address = address.address.get()
     if first_address == "None":
         first_address = ""
-    second_address = address.address_2.get()
-    if second_address == "None":
-        second_address = ""
-    label_address = first_address + ' ' + second_address
+    try:
+        second_address = address.address_2.get()
+        if second_address == "None":
+            second_address = ""
+        label_address = first_address + ' ' + second_address
+    except AttributeError:
+        label_address = first_address
     label_city_state_zip = address.city.get() + ' ' + address.state.get() +\
             ' ' + address.zipcode.get()
 
-    if label_institution == "":
+    try:
+        if label_institution == "":
             labelText.SetField('TEXTO1', label_name)
             labelText.SetField('TEXTO2', label_address)
             labelText.SetField('TEXTO3', label_city_state_zip)
-    else:
+        else:
+            labelText.SetField('TEXTO1', label_name)
+            labelText.SetField('TEXTO2', label_institution)
+            labelText.SetField('TEXTO3', label_address)
+            labelText.SetField('TEXTO4', label_city_state_zip)
+    except UnboundLocalError:
         labelText.SetField('TEXTO1', label_name)
-        labelText.SetField('TEXTO2', label_institution)
-        labelText.SetField('TEXTO3', label_address)
-        labelText.SetField('TEXTO4', label_city_state_zip)
+        labelText.SetField('TEXTO2', label_address)
+        labelText.SetField('TEXTO3', label_city_state_zip)
 
     labelCom.StartPrintJob()
     labelCom.Print(num_labels,False)
