@@ -31,7 +31,7 @@ and order of tabs."""
 
 TAB_DICT = {'Direct Appeals': 6, 'Delayed Appeals': 0, 'Jurisdictionals': 1,
         'General Letters': 2, 'Original Actions': 3,
-        'Timeliness Letters': 4, 'AOD Letters': 5,}
+        'Briefs and Motions': 4, 'AOD Letters': 5,}
 application = AppWindow(root, TAB_DICT)
 
 
@@ -66,8 +66,9 @@ add_template_previews(jur_button_list, jur_preview_field)
 
 daf_tab, daf_preview_field, daf_recipient_fields = create_tab(application,
         'Delayed Appeals')
-daf_tab_template_list = [('Delayed App-No Opinion', DAF_NoOpinionLetter),
-        ('Delayed App-No FactsAff', DAF_NoFactsAffLetter)]
+daf_tab_template_list = [('Missing Opinion', DAF_NoOpinionLetter),
+        ('No Facts Aff.', DAF_NoFactsAffLetter),
+        ('Delayed App. Not Allowed', DAF_NotAllowedLetter)]
 daf_tab.set_col_cursor(0)
 daf_tab.set_row_cursor(12)
 daf_button_list = add_template_buttons(daf_tab, daf_recipient_fields,
@@ -97,7 +98,16 @@ dap_button_list = add_template_buttons(dap_tab, dap_recipient_fields,
         dap_tab_template_list)
 add_template_previews(dap_button_list, dap_preview_field)
 
-time_tab = create_tab(application, 'Timeliness Letters')
+time_tab, time_preview_field, time_recipient_fields = create_tab(application,
+        'Briefs and Motions')
+time_tab_template_list = [('Late Merit Brief', LateBriefLetter),
+        ]
+time_tab.set_col_cursor(0)
+time_tab.set_row_cursor(12)
+time_button_list = add_template_buttons(time_tab, time_recipient_fields,
+        time_tab_template_list)
+add_template_previews(time_button_list, time_preview_field)
+
 
 
 """Run the application."""

@@ -150,6 +150,8 @@ def create_aod_tab(application):
 def return_recipient_fields(tab_name):
     if tab_name == 'Jurisdictionals':
         return PrisonerAddressJurDates()
+    elif tab_name == 'Briefs and Motions':
+        return PrisonerAddressMotionDates()
     else:
         return PrisonerAddress()
 

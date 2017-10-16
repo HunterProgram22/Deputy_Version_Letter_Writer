@@ -16,10 +16,12 @@ NOCASE_TEMPLATE = TEMPLATE_PATH + 'NoCase_Template.docx'
 NOFORMS_TEMPLATE = TEMPLATE_PATH + 'NoForms_Template.docx'
 LATEJUR_TEMPLATE = TEMPLATE_PATH + 'LateJur_Template.docx'
 LATEJUR_DAF_TEMPLATE = TEMPLATE_PATH + 'LateJurDelayedAppeal_Template.docx'
+LATEBRIEF_TEMPLATE = TEMPLATE_PATH + 'LateBrief_Template.docx'
 JUR_MISSINGDOCS_TEMPLATE = TEMPLATE_PATH + 'JurMissingDocs_Template.docx'
 JUR_NOEXTENSION_TEMPLATE = TEMPLATE_PATH + 'JurNoExtension_Template.docx'
 DAF_NOFACTS_TEMPLATE = TEMPLATE_PATH + 'DafNoFacts_Template.docx'
 DAF_NOOPINION_TEMPLATE = TEMPLATE_PATH + 'DafNoOpinion_Template.docx'
+DAF_NOTALLOWED_TEMPLATE = TEMPLATE_PATH + 'DafNotAllowed_Template.docx'
 OA_NOSECDEP_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoSecurityDeposit_Template.docx'
 OA_NOADD_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddress_Template.docx'
 OA_NOTNOTARIZED_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNotNotarized_Template.docx'
@@ -89,6 +91,21 @@ class PrisonerAddressJurDates(PrisonerAddress):
         self.data_fields.append(('COA Decision Date', self.coa_decision_date))
         self.data_fields.append(('Appeal Due Date', self.appeal_due_date))
         self.data_fields.append(('Documents Received Date', self.document_received_date))
+
+
+class PrisonerAddressMotionDates(PrisonerAddress):
+    def __init__(self):
+        PrisonerAddress.__init__(self)
+        self.document_name = StringVar()
+        self.document_due_date = StringVar()
+        self.document_received_date = StringVar()
+        self.case_number = StringVar()
+        self.case_name = StringVar()
+        self.data_fields.append(('Document Name', self.document_name))
+        self.data_fields.append(('Document Due Date', self.document_due_date))
+        self.data_fields.append(('Document Received Date', self.document_received_date))
+        self.data_fields.append(('Case Number', self.case_number))
+        self.data_fields.append(('Case Name', self.case_name))
 
 
 class CaseInformation(object):
@@ -265,6 +282,10 @@ class DAF_NoFactsAffLetter(GEN_Letter):
     template = DAF_NOFACTS_TEMPLATE
 
 
+class DAF_NotAllowedLetter(GEN_Letter):
+    template = DAF_NOTALLOWED_TEMPLATE
+
+
 class OA_NoAddressLetter(GEN_Letter):
     template = OA_NOADD_TEMPLATE
 
@@ -282,3 +303,6 @@ class OA_NoAddNoSecDepNoAffLetter(GEN_Letter):
 
 class DAP_PrematureBriefLetter(GEN_Letter):
     template = DAP_PREMATUREBRIEF_TEMPLATE
+
+class LateBriefLetter(GEN_Letter):
+    template = LATEBRIEF_TEMPLATE
