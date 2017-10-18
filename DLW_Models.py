@@ -17,6 +17,8 @@ NOFORMS_TEMPLATE = TEMPLATE_PATH + 'NoForms_Template.docx'
 LATEJUR_TEMPLATE = TEMPLATE_PATH + 'LateJur_Template.docx'
 LATEJUR_DAF_TEMPLATE = TEMPLATE_PATH + 'LateJurDelayedAppeal_Template.docx'
 LATEBRIEF_TEMPLATE = TEMPLATE_PATH + 'LateBrief_Template.docx'
+LATERECON_TEMPLATE = TEMPLATE_PATH + 'LateRecon_Template.docx'
+NORECON_TEMPLATE = TEMPLATE_PATH + 'NoRecon_Template.docx'
 JUR_MISSINGDOCS_TEMPLATE = TEMPLATE_PATH + 'JurMissingDocs_Template.docx'
 JUR_NOEXTENSION_TEMPLATE = TEMPLATE_PATH + 'JurNoExtension_Template.docx'
 DAF_NOFACTS_TEMPLATE = TEMPLATE_PATH + 'DafNoFacts_Template.docx'
@@ -96,14 +98,14 @@ class PrisonerAddressJurDates(PrisonerAddress):
 class PrisonerAddressMotionDates(PrisonerAddress):
     def __init__(self):
         PrisonerAddress.__init__(self)
-        self.document_name = StringVar()
         self.document_due_date = StringVar()
         self.document_received_date = StringVar()
+        self.sco_decision_date = StringVar()
         self.case_number = StringVar()
         self.case_name = StringVar()
-        self.data_fields.append(('Document Name', self.document_name))
         self.data_fields.append(('Document Due Date', self.document_due_date))
         self.data_fields.append(('Document Received Date', self.document_received_date))
+        self.data_fields.append(('Supreme Court Decision Date', self.sco_decision_date))
         self.data_fields.append(('Case Number', self.case_number))
         self.data_fields.append(('Case Name', self.case_name))
 
@@ -301,8 +303,18 @@ class OA_NoSecurityDepositLetter(GEN_Letter):
 class OA_NoAddNoSecDepNoAffLetter(GEN_Letter):
     template = OA_NOADDSECDEPAFF_TEMPLATE
 
+
 class DAP_PrematureBriefLetter(GEN_Letter):
     template = DAP_PREMATUREBRIEF_TEMPLATE
 
+
 class LateBriefLetter(GEN_Letter):
     template = LATEBRIEF_TEMPLATE
+
+
+class NoReconLetter(GEN_Letter):
+    template = NORECON_TEMPLATE
+
+
+class LateReconLetter(GEN_Letter):
+    template = LATERECON_TEMPLATE

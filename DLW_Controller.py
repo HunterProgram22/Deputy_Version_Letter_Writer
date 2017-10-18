@@ -76,9 +76,6 @@ def assemble_rejection_reasons(aod_req_fields):
     string = "" # for use in trying to get bullet list - docx.Document(TEMPLATE)
     for j, reason in enumerate(rejection_reasons):
         string = string + '\u2022 ' + reason + '\n\n'
-    #newstring = ""
-    #for paragraph in string.paragraphs:
-    #    newstring = newstring + '\n' + paragraph.text
     return string
 
 def aod_return_field_values(affiant, case_information, judge, aod_req_fields):
