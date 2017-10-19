@@ -11,6 +11,7 @@ TEMPLATE = TEMPLATE_PATH + 'Template.docx'
 AFFIANT_TEMPLATE = TEMPLATE_PATH + 'Affiant_Template.docx'
 JUDGE_TEMPLATE = TEMPLATE_PATH + 'Judge_Template.docx'
 GEN_TEMPLATE = TEMPLATE_PATH + 'Gen_Template.docx'
+BLANK_TEMPLATE = TEMPLATE_PATH + 'GenBlank_Template.docx'
 NOTFILED_TEMPLATE = TEMPLATE_PATH + 'NotFiled_Template.docx'
 NOCASE_TEMPLATE = TEMPLATE_PATH + 'NoCase_Template.docx'
 NOFORMS_TEMPLATE = TEMPLATE_PATH + 'NoForms_Template.docx'
@@ -29,6 +30,9 @@ OA_NOADD_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddress_Template.docx'
 OA_NOTNOTARIZED_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNotNotarized_Template.docx'
 OA_NOADDSECDEPAFF_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddNoSecDepNoAff_Template.docx'
 DAP_PREMATUREBRIEF_TEMPLATE = TEMPLATE_PATH + 'DapPrematureBrief_Template.docx'
+AMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'AmendJur_Template.docx'
+LATEAMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'LateAmendedJur_Template.docx'
+
 
 DATE_LETTER = time.strftime("%B %d, %Y")
 
@@ -108,6 +112,12 @@ class PrisonerAddressMotionDates(PrisonerAddress):
         self.data_fields.append(('Supreme Court Decision Date', self.sco_decision_date))
         self.data_fields.append(('Case Number', self.case_number))
         self.data_fields.append(('Case Name', self.case_name))
+
+
+class PrisonerAddressAmendedDates(PrisonerAddressMotionDates):
+    def __init__(self):
+        PrisonerAddressMotionDates.__init__(self)
+        del self.data_fields[11]
 
 
 class CaseInformation(object):
@@ -248,6 +258,10 @@ class GEN_Letter(Letter):
         return new[2:]
 
 
+class GEN_BlankLetter(GEN_Letter):
+    template = BLANK_TEMPLATE
+
+
 class GEN_NotFiledLetter(GEN_Letter):
     template = NOTFILED_TEMPLATE
 
@@ -318,3 +332,11 @@ class NoReconLetter(GEN_Letter):
 
 class LateReconLetter(GEN_Letter):
     template = LATERECON_TEMPLATE
+
+
+class AmendJurLetter(GEN_Letter):
+    template = AMEND_JUR_TEMPLATE
+
+
+class LateAmendedJurLetter(GEN_Letter):
+    template = LATEAMEND_JUR_TEMPLATE

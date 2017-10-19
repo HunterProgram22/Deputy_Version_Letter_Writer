@@ -31,10 +31,10 @@ and order of tabs."""
 
 """The values for the TAB_DICT are currently irrelevant. Could put tab
 names in place of numbers if there is need to use elsewhere."""
-TAB_DICT = {'Jurisdictionals': 0, 'General Letters': 1,
+TAB_DICT = {'General Letters': 0, 'Jurisdictionals': 1,
         'Direct Appeals': 2, 'Delayed Appeals': 3,
         'Original Actions': 4, 'Briefs and Motions': 5,
-        'AOD Letters': 6, 'POL Letters': 7}
+        'Amended Docs': 6, 'AOD Letters': 7}
 application = AppWindow(root, TAB_DICT)
 
 
@@ -46,9 +46,10 @@ create_aod_tab(application)
 """Create_tab returns a tuple of (tab, preview_field, recipient_fields)."""
 gen_tab, gen_preview_field, gen_recipient_fields = create_tab(application,
         'General Letters')
-gen_tab_template_list = [('Doc Not Filed Letter', GEN_NotFiledLetter),
-        ('No Case Letter', GEN_NoCaseLetter),
-        ('No Forms Letter', GEN_NoFormsLetter)]
+gen_tab_template_list = [('Document Not Filed', GEN_NotFiledLetter),
+        ('No Case Pending', GEN_NoCaseLetter),
+        ('No Forms', GEN_NoFormsLetter),
+        ('Blank Letter', GEN_BlankLetter)]
 gen_tab.set_col_cursor(0)
 gen_tab.set_row_cursor(12)
 gen_button_list = add_template_buttons(gen_tab, gen_recipient_fields,
@@ -113,6 +114,16 @@ time_button_list = add_template_buttons(time_tab, time_recipient_fields,
         time_tab_template_list)
 add_template_previews(time_button_list, time_preview_field)
 
+amend_tab, amend_preview_field, amend_recipient_fields = create_tab(application,
+        'Amended Docs')
+amend_tab_template_list = [('Amend Jur Memo', AmendJurLetter),
+        ('Late Amended Jur Memo', LateAmendedJurLetter),
+        ]
+amend_tab.set_col_cursor(0)
+amend_tab.set_row_cursor(12)
+amend_button_list = add_template_buttons(amend_tab, amend_recipient_fields,
+        amend_tab_template_list)
+add_template_previews(amend_button_list, amend_preview_field)
 
 
 """Run the application."""

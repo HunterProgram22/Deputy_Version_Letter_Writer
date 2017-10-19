@@ -5,6 +5,7 @@ TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 db = TinyDB(TEMPLATE_PATH + 'Templates.json')
 db.insert({'name': 'Affiant_Template', 'docpath': 'Affiant_Template.docx'})
 db.insert({'name': 'Gen_Template', 'docpath': 'Gen_Template.docx'})
+db.insert({'name': 'GenBlank_Template', 'docpath': 'GenBlank_Template.docx'})
 db.insert({'name': 'Judge_Template', 'docpath': 'Judge_Template.docx'})
 db.insert({'name': 'NotFiled_Template', 'docpath': 'NotFiled_Template.docx'})
 db.insert({'name': 'NoCase_Template', 'docpath': 'NoCase_Template.docx'})
@@ -23,5 +24,8 @@ db.insert({'name': 'OriginalActionNoAddress_Template', 'docpath': 'OriginalActio
 db.insert({'name': 'OriginalActionNotNotarized_Template', 'docpath': 'OriginalActionNotNotarized_Template.docx'})
 db.insert({'name': 'OriginalActionNoAddNoSecDepNoAff_Template', 'docpath': 'OriginalActionNoAddNoSecDepNoAff_Template.docx'})
 db.insert({'name': 'DapPrematureBrief_Template', 'docpath': 'DapPrematureBrief_Template.docx'})
+db.insert({'name': 'AmendJur_Template', 'docpath': 'AmendJur_Template.docx'})
+db.insert({'name': 'LateAmendedJur_Template', 'docpath': 'LateAmendedJur_Template.docx'})
+
 
 db.close()

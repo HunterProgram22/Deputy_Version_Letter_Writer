@@ -152,6 +152,8 @@ def return_recipient_fields(tab_name):
         return PrisonerAddressJurDates()
     elif tab_name == 'Briefs and Motions':
         return PrisonerAddressMotionDates()
+    elif tab_name == 'Amended Docs':
+        return PrisonerAddressAmendedDates()
     else:
         return PrisonerAddress()
 
@@ -234,7 +236,7 @@ class AppMenu(ttk.Frame):
             self.edit_templates.add_command(label=item['name'], command=partial(open_doc, TEMPLATE_PATH + item['docpath']))
         self.menu.add_cascade(label="File", menu=self.file)
         self.menu.add_cascade(label="Forms", menu=self.printdoc)
-        self.menu.add_cascade(label="Edit_Templates", menu=self.edit_templates)
+        self.menu.add_cascade(label="Templates", menu=self.edit_templates)
 
 
 class TabWindow(ttk.Frame):
