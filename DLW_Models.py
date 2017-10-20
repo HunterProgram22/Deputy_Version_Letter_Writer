@@ -1,11 +1,9 @@
 from tkinter import StringVar, IntVar, Text
 import time, docx, os
 
-AOD_FILEPATH = 'S:\\AOD\\2017'
-GEN_FILEPATH = 'S:\\Deputy Clerks'
-PATH = 'S:\\AOD\\AOD_Test\\'
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 SAVE_PATH = "S:\\Letter_Writer\\"
+DATE_LETTER = time.strftime("%B %d, %Y")
 
 TEMPLATE = TEMPLATE_PATH + 'Template.docx'
 AFFIANT_TEMPLATE = TEMPLATE_PATH + 'Affiant_Template.docx'
@@ -33,7 +31,6 @@ DAP_PREMATUREBRIEF_TEMPLATE = TEMPLATE_PATH + 'DapPrematureBrief_Template.docx'
 AMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'AmendJur_Template.docx'
 LATEAMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'LateAmendedJur_Template.docx'
 
-DATE_LETTER = time.strftime("%B %d, %Y")
 
 class Address(object):
     """ A for creating a mailing address. """

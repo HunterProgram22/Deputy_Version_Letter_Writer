@@ -6,6 +6,11 @@ from DLW_Models import AOD_AffiantLetter, AOD_JudgeLetter
 from DLW_Labels import print_label
 
 DATE_LETTER = time.strftime("%B %d, %Y")
+AOD_FILEPATH = 'S:\\AOD\\2017'
+GEN_FILEPATH = 'S:\\Deputy Clerks'
+PATH = 'S:\\AOD\\AOD_Test\\'
+TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
+TEMPLATE = TEMPLATE_PATH + 'Template.docx'
 
 def open_blank_file():
     os.startfile(TEMPLATE)
