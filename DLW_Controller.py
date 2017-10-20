@@ -39,7 +39,7 @@ def open_doc(document):
         return None
 
 def print_doc(document):
-    os.startfile(document, "print")
+    startfile(document, "print")
 
 def application_exit():
     exit()
