@@ -107,6 +107,14 @@ def add_preview_field(master):
     master.row_cursor += 1
     return widget
 
+def add_weight(widget):
+    rows = 0
+    while rows < 50:
+        widget.rowconfigure(rows, weight=1)
+        widget.columnconfigure(rows, weight=1)
+        rows += 1
+    return None
+
 def create_aod_tab(application):
     aod_tab = application.app_tab_dict['AOD Letters']
     add_heading(aod_tab, 'Affiant')
@@ -174,6 +182,15 @@ def create_tab(application, tab_name):
     tab.set_col_cursor(3), tab.set_row_cursor(2)
     add_button_left(tab, 'Clear Recipient', lambda: clear_fields(recipient_fields))
     return (tab, preview_field, recipient_fields)
+
+def populate_tab_content(application, tab_dict_key, template_list):
+    tab, tab_preview_field, tab_recipient_fields = create_tab(
+            application, tab_dict_key)
+    tab.set_col_cursor(0)
+    tab.set_row_cursor(12)
+    tab_button_list = add_template_buttons(tab, tab_recipient_fields, template_list)
+    add_template_previews(tab_button_list, tab_preview_field)
+    return None
 
 def add_template_buttons(tab, recipient_fields, template_list):
     button_list = []
