@@ -123,20 +123,16 @@ def clear_fields(fields):
 def print_label(address):
     curdir = None
     if getattr(sys, 'frozen', False):
-    	# frozen
     	curdir = path.dirname(sys.executable)
     else:
-    	# unfrozen
     	curdir = path.dirname(path.abspath(__file__))
     mylabel = path.join(curdir,'my.label')
     num_labels = 1
-
     labelCom = Dispatch('Dymo.DymoAddIn')
     labelText = Dispatch('Dymo.DymoLabels')
     isOpen = labelCom.Open(mylabel)
     selectPrinter = 'DYMO LabelWriter 450'
     labelCom.SelectPrinter(selectPrinter)
-
     try:
         label_name = address.first_name.get() + ' ' + address.last_name.get() +\
                 ' ' + address.inmate_number.get()
@@ -155,7 +151,6 @@ def print_label(address):
         label_address = first_address
     label_city_state_zip = address.city.get() + ' ' + address.state.get() +\
             ' ' + address.zipcode.get()
-
     try:
         if label_institution == "":
             labelText.SetField('TEXTO1', label_name)
@@ -170,7 +165,6 @@ def print_label(address):
         labelText.SetField('TEXTO1', label_name)
         labelText.SetField('TEXTO2', label_address)
         labelText.SetField('TEXTO3', label_city_state_zip)
-
     labelCom.StartPrintJob()
     labelCom.Print(num_labels,False)
     labelCom.EndPrintJob()
