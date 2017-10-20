@@ -13,7 +13,7 @@ BTN_STYLE = "Blue.TButton"
 HEADING_FONT = "Times 12 bold"
 HEADING_WIDTH = 30
 SUBHEADING_FONT = "Times 8"
-PREVIEW_FIELD_FONT = "Times 8"
+PREVIEW_FIELD_FONT = "Times 9"
 
 PRISON_DB = TinyDB('C:\\Users\\kudelaj\\Desktop\\Prisons.json')
 
