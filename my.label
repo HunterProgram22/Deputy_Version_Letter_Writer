@@ -30,7 +30,7 @@
 				</Element>
 			</StyledText>
 		</TextObject>
-		<Bounds X="180" Y="150" Width="5000" Height="300" />
+		<Bounds X="100" Y="150" Width="5000" Height="300" />
 	</ObjectInfo>
 	<ObjectInfo>
 		<TextObject>
@@ -56,7 +56,7 @@
 				</Element>
 			</StyledText>
 		</TextObject>
-		<Bounds X="180" Y="450" Width="5000" Height="300" />
+		<Bounds X="100" Y="450" Width="5000" Height="300" />
 	</ObjectInfo>
 	<ObjectInfo>
 		<TextObject>
@@ -82,7 +82,7 @@
 				</Element>
 			</StyledText>
 		</TextObject>
-		<Bounds X="180" Y="750" Width="5000" Height="300" />
+		<Bounds X="100" Y="750" Width="5000" Height="300" />
 	</ObjectInfo>
 	<ObjectInfo>
 		<TextObject>
@@ -108,6 +108,6 @@
 				</Element>
 			</StyledText>
 		</TextObject>
-		<Bounds X="180" Y="1050" Width="5000" Height="300" />
+		<Bounds X="100" Y="1050" Width="5000" Height="300" />
 	</ObjectInfo>
 </DieCutLabel>

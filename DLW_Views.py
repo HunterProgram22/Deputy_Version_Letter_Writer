@@ -3,7 +3,6 @@ from tkinter import Frame, Menu, W, E, Label, Entry, Radiobutton, Checkbutton, \
 import tkinter.ttk as ttk
 import tkinter as tk
 from DLW_Controller import *
-from DLW_Addresses import PRISON_LIST, PRISON_DB
 from DLW_Models import Address, CaseInformation, AODRequirements, PrisonerAddress, \
     PrisonerAddressJurDates, PrisonerAddressMotionDates, PrisonerAddressAmendedDates
 from tinydb import TinyDB, Query
@@ -13,6 +12,8 @@ BTN_WIDTH = 20
 HEADING_FONT = "Times 12 bold"
 HEADING_WIDTH = 30
 SUBHEADING_FONT = "Times 8"
+
+PRISON_DB = TinyDB('C:\\Users\\kudelaj\\Desktop\\Prisons.json')
 
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 FORMS_PATH = "S:\\Letter_Writer\\Forms\\"
@@ -84,6 +85,18 @@ def add_field(master, label, variable):
     entry.grid(row=master.row_cursor, column=master.col_cursor+1, pady=5)
     master.row_cursor += 1
 
+def add_template_buttons(tab, recipient_fields, template_list):
+    button_list = []
+    for template in template_list:
+        button = add_button_left(tab, template[0], partial(button_create_gen_letter,
+                recipient_fields, template[1]))
+        button_list.append((button, template[1]))
+    return button_list
+
+def add_template_previews(button_list, preview_field):
+    for button in button_list:
+        CreatePreview(button[0], preview_field, button[1].return_preview())
+
 def add_text_field(master, text):
     label = Label(master, text=text)
     label.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=5)
@@ -152,15 +165,13 @@ def create_aod_tab(application):
     aod_tab.set_row_cursor(14)
     add_button_right(aod_tab, 'Clear Judge', lambda: clear_fields(judge_fields))
 
-def return_recipient_fields(tab_name):
-    if tab_name == 'Jurisdictionals':
-        return PrisonerAddressJurDates()
-    elif tab_name == 'Briefs and Motions':
-        return PrisonerAddressMotionDates()
-    elif tab_name == 'Amended Docs':
-        return PrisonerAddressAmendedDates()
-    else:
-        return PrisonerAddress()
+def create_prison_list():
+    prison_db = PRISON_DB
+    prison_list = []
+    for place in prison_db:
+        prison_list.append(place['Institution_Name'])
+    tuple(prison_list)
+    return prison_list
 
 def create_tab(application, tab_name):
     """A generic tab for multiple templates with a preview window."""
@@ -189,17 +200,15 @@ def populate_tab_content(application, tab_dict_key, template_list):
     add_template_previews(tab_button_list, tab_preview_field)
     return None
 
-def add_template_buttons(tab, recipient_fields, template_list):
-    button_list = []
-    for template in template_list:
-        button = add_button_left(tab, template[0], partial(button_create_gen_letter,
-                recipient_fields, template[1]))
-        button_list.append((button, template[1]))
-    return button_list
-
-def add_template_previews(button_list, preview_field):
-    for button in button_list:
-        CreatePreview(button[0], preview_field, button[1].return_preview())
+def return_recipient_fields(tab_name):
+    if tab_name == 'Jurisdictionals':
+        return PrisonerAddressJurDates()
+    elif tab_name == 'Briefs and Motions':
+        return PrisonerAddressMotionDates()
+    elif tab_name == 'Amended Docs':
+        return PrisonerAddressAmendedDates()
+    else:
+        return PrisonerAddress()
 
 
 class AppWindow(ttk.Frame):
@@ -279,7 +288,7 @@ class TabWindowPrisoner(TabWindow):
         self.model = model
         # https://stackoverflow.com/questions/38312494/show-specific-value-in-textbox-according-to-combobox-selected-value-in-python
         self.prison_field = ttk.Combobox(self, textvariable=field[1],
-                    values=PRISON_LIST, width=30)
+                    values=create_prison_list(), width=30)
         self.prison_field.grid(row=self.row_cursor, column=1, pady=5)
         self.prison_field.bind("<<ComboboxSelected>>", self.newselection)
 

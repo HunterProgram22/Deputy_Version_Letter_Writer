@@ -1,9 +1,10 @@
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox, END
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-import os, docx, time, sys
+from os import path, startfile
+from win32com.client import Dispatch
+import docx, time, sys
 from DLW_Models import AOD_AffiantLetter, AOD_JudgeLetter
-from DLW_Labels import print_label
 
 DATE_LETTER = time.strftime("%B %d, %Y")
 AOD_FILEPATH = 'S:\\AOD\\2017'
@@ -13,19 +14,19 @@ TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 TEMPLATE = TEMPLATE_PATH + 'Template.docx'
 
 def open_blank_file():
-    os.startfile(TEMPLATE)
+    startfile(TEMPLATE)
 
 def open_existing_AOD_file():
     name = askopenfilename(initialdir=AOD_FILEPATH)
     if name:
-        os.startfile(name)
+        startfile(name)
     else:
         return None
 
 def open_existing_GEN_file():
     name = askopenfilename(initialdir=GEN_FILEPATH)
     if name:
-        os.startfile(name)
+        startfile(name)
     else:
         return None
 
@@ -33,7 +34,7 @@ def open_doc(document):
     if messagebox.askyesno("Modify Template?",
             "If you modify the template and then save the changes they are permanent " +\
             "and future letters will incorporate the changes, do you want to proceed?"):
-        os.startfile(document)
+        startfile(document)
     else:
         return None
 
@@ -118,3 +119,58 @@ def clear_affiant(affiant, aod_reqs):
 def clear_fields(fields):
     for field in fields.data_fields:
         field[1].set('')
+
+def print_label(address):
+    curdir = None
+    if getattr(sys, 'frozen', False):
+    	# frozen
+    	curdir = path.dirname(sys.executable)
+    else:
+    	# unfrozen
+    	curdir = path.dirname(path.abspath(__file__))
+    mylabel = path.join(curdir,'my.label')
+    num_labels = 1
+
+    labelCom = Dispatch('Dymo.DymoAddIn')
+    labelText = Dispatch('Dymo.DymoLabels')
+    isOpen = labelCom.Open(mylabel)
+    selectPrinter = 'DYMO LabelWriter 450'
+    labelCom.SelectPrinter(selectPrinter)
+
+    try:
+        label_name = address.first_name.get() + ' ' + address.last_name.get() +\
+                ' ' + address.inmate_number.get()
+        label_institution = address.prison.get()
+    except AttributeError:
+        label_name = address.first_name.get() + ' ' + address.last_name.get()
+    first_address = address.address.get()
+    if first_address == "None":
+        first_address = ""
+    try:
+        second_address = address.address_2.get()
+        if second_address == "None":
+            second_address = ""
+        label_address = first_address + ' ' + second_address
+    except AttributeError:
+        label_address = first_address
+    label_city_state_zip = address.city.get() + ' ' + address.state.get() +\
+            ' ' + address.zipcode.get()
+
+    try:
+        if label_institution == "":
+            labelText.SetField('TEXTO1', label_name)
+            labelText.SetField('TEXTO2', label_address)
+            labelText.SetField('TEXTO3', label_city_state_zip)
+        else:
+            labelText.SetField('TEXTO1', label_name)
+            labelText.SetField('TEXTO2', label_institution)
+            labelText.SetField('TEXTO3', label_address)
+            labelText.SetField('TEXTO4', label_city_state_zip)
+    except UnboundLocalError:
+        labelText.SetField('TEXTO1', label_name)
+        labelText.SetField('TEXTO2', label_address)
+        labelText.SetField('TEXTO3', label_city_state_zip)
+
+    labelCom.StartPrintJob()
+    labelCom.Print(num_labels,False)
+    labelCom.EndPrintJob()
