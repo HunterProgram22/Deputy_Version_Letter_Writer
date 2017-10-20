@@ -9,9 +9,11 @@ from tinydb import TinyDB, Query
 from functools import partial
 
 BTN_WIDTH = 20
+BTN_STYLE = "Blue.TButton"
 HEADING_FONT = "Times 12 bold"
 HEADING_WIDTH = 30
 SUBHEADING_FONT = "Times 8"
+PREVIEW_FIELD_FONT = "Times 8"
 
 PRISON_DB = TinyDB('C:\\Users\\kudelaj\\Desktop\\Prisons.json')
 
@@ -48,13 +50,13 @@ def add_aodtab_checkboxes(master, aod_requirements_model):
         master.row_cursor += 1
 
 def add_button_right(master, button_name, button_command):
-    button = ttk.Button(master, text=button_name, command=button_command, width=BTN_WIDTH, style="Blue.TButton")
+    button = ttk.Button(master, text=button_name, command=button_command, width=BTN_WIDTH, style=BTN_STYLE)
     button.grid(row=master.row_cursor, column=master.col_cursor, sticky=E, padx=10, pady=3)
     master.row_cursor += 1
     return button
 
 def add_button_left(master, button_name, button_command):
-    button = ttk.Button(master, text=button_name, command=button_command, width=BTN_WIDTH, style="Blue.TButton")
+    button = ttk.Button(master, text=button_name, command=button_command, width=BTN_WIDTH, style=BTN_STYLE)
     button.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=3)
     master.row_cursor += 1
     return button
@@ -106,7 +108,7 @@ def add_text_field(master, text):
     master.row_cursor += 1
 
 def add_preview_field(master):
-    widget = Text(master, height=10, wrap=WORD, font="Time 8")
+    widget = Text(master, height=10, wrap=WORD, font=PREVIEW_FIELD_FONT)
     widget.grid(row=master.row_cursor, column=1, columnspan=3, rowspan=5, padx=5,
             pady=5, sticky='NSEW')
     master.grid_rowconfigure(12, weight=1)
@@ -131,23 +133,19 @@ def create_aod_tab(application):
     affiant_fields = Address()
     add_gender_radiobuttons(aod_tab, affiant_fields)
     add_fields_from_list(aod_tab, affiant_fields)
-
     add_heading(aod_tab, 'Case Information')
     add_sub_heading(aod_tab, 'Applies to affiant and judge.')
     case_information_fields = CaseInformation()
     add_fields_from_list(aod_tab, case_information_fields)
-
     add_heading(aod_tab, 'Judge')
     judge_fields = Address()
     add_fields_from_list(aod_tab, judge_fields)
-
     aod_tab.set_col_cursor(2)
     aod_tab.set_row_cursor(0)
     add_heading(aod_tab, 'AOD Requirements')
     add_sub_heading(aod_tab, 'Check the items to include in affiant rejection letter.')
     aod_req_fields = AODRequirements()
     add_aodtab_checkboxes(aod_tab, aod_req_fields)
-
     aod_tab.set_row_cursor(8)
     add_button_left(aod_tab, 'Create Affiant Letter', lambda: button_create_affiant_letter(
             affiant_fields, case_information_fields, judge_fields, aod_req_fields))

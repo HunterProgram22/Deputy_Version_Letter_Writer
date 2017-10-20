@@ -1,5 +1,6 @@
 from tkinter import StringVar, IntVar, Text
-import time, docx, os
+from os import startfile
+import time, docx
 
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 SAVE_PATH = "S:\\Letter_Writer\\"
@@ -48,8 +49,7 @@ class Address(object):
                              ('Address', self.address),
                              ('City', self.city),
                              ('State', self.state),
-                             ('Zipcode', self.zipcode),
-                            ]
+                             ('Zipcode', self.zipcode)]
 
     def return_data_fields(self):
         return self.data_fields
@@ -70,8 +70,6 @@ class Address(object):
 
 
 class PrisonerAddress(Address):
-    """ A subclass model object of the Address class that also includes
-    fields for prisoner number and institution. """
     def __init__(self):
         Address.__init__(self)
         self.address_2 = StringVar()
@@ -83,7 +81,6 @@ class PrisonerAddress(Address):
 
 
 class PrisonerAddressJurDates(PrisonerAddress):
-    """A subclass object that includes fields/variables for new case due dates."""
     def __init__(self):
         PrisonerAddress.__init__(self)
         self.coa_decision_date = StringVar()
@@ -122,8 +119,7 @@ class CaseInformation(object):
         self.court_name = StringVar()
         self.data_fields = [('Case Name', self.case_name),
                             ('Case Number', self.case_number),
-                            ('Court Name', self.court_name),
-                            ]
+                            ('Court Name', self.court_name)]
 
     def return_data_fields(self):
         return self.data_fields
@@ -139,25 +135,24 @@ class AODRequirements(object):
         self.timely_variable = IntVar()
         self.case_caption_variable = IntVar()
         self.aod_requirements_list = [
-                        ('Did not serve the judge', self.cos_judge_variable,
-                                'Does not include a certificate of service indicating it ' + \
-                                'has been served on the judge(s) named in the affidavit.'),
-                        ('Did not serve all parties', self.cos_party_variable,
-                                'Does not include a certificate of service indicating it has ' + \
-                                'been served on all parties or their counsel in the underlying case.'),
-                        ('Does not have next hearing date', self.hearing_date_variable,
-                                'Does not indicate the date of the next scheduled hearing or ' + \
-                                'a statement that no hearings are scheduled.'),
-                        ('The affidavit is not notarized', self.notarized_variable,
-                                'Was not properly notarized with a notary public’s jurat.'),
-                        ('Submitted less than 7 days before next hearing', self.timely_variable,
-                                'Was not submitted seven or more days before the next scheduled ' + \
-                                'hearing in the underlying case or does not include an affirmative ' + \
-                                'statement that it was impossible to file before seven days and ' + \
-                                'gives reason why it was impossible.'),
-                        ('Affidavit is missing lower court case information', self.case_caption_variable,
-                                'Does not indicate the underlying case caption and case number.'),
-                        ]
+                ('Did not serve the judge', self.cos_judge_variable,
+                 'Does not include a certificate of service indicating it ' + \
+                 'has been served on the judge(s) named in the affidavit.'),
+                ('Did not serve all parties', self.cos_party_variable,
+                 'Does not include a certificate of service indicating it has ' + \
+                 'been served on all parties or their counsel in the underlying case.'),
+                ('Does not have next hearing date', self.hearing_date_variable,
+                 'Does not indicate the date of the next scheduled hearing or ' + \
+                 'a statement that no hearings are scheduled.'),
+                ('The affidavit is not notarized', self.notarized_variable,
+                 'Was not properly notarized with a notary public’s jurat.'),
+                ('Submitted less than 7 days before next hearing', self.timely_variable,
+                 'Was not submitted seven or more days before the next scheduled ' + \
+                 'hearing in the underlying case or does not include an affirmative ' + \
+                 'statement that it was impossible to file before seven days and ' + \
+                 'gives reason why it was impossible.'),
+                ('Affidavit is missing lower court case information', self.case_caption_variable,
+                 'Does not indicate the underlying case caption and case number.')]
 
     def return_requirements_list(self):
         return self.aod_requirements_list
@@ -193,7 +188,7 @@ class Letter(object):
         self.open_letter()
 
     def open_letter(self):
-        os.startfile(self.docname)
+        startfile(self.docname)
 
 
 class AOD_AffiantLetter(Letter):
@@ -256,82 +251,62 @@ class GEN_Letter(Letter):
 class GEN_BlankLetter(GEN_Letter):
     template = BLANK_TEMPLATE
 
-
 class GEN_NotFiledLetter(GEN_Letter):
     template = NOTFILED_TEMPLATE
-
 
 class GEN_NoCaseLetter(GEN_Letter):
     template = NOCASE_TEMPLATE
 
-
 class GEN_NoFormsLetter(GEN_Letter):
     template = NOFORMS_TEMPLATE
-
 
 class JUR_LateJurLetter(GEN_Letter):
     template = LATEJUR_TEMPLATE
 
-
 class JUR_LateJurDelayedAppealLetter(GEN_Letter):
     template = LATEJUR_DAF_TEMPLATE
-
 
 class JUR_NoExtensionLetter(GEN_Letter):
     template = JUR_NOEXTENSION_TEMPLATE
 
-
 class JUR_TimelyJurMissingDocsLetter(GEN_Letter):
     template = JUR_MISSINGDOCS_TEMPLATE
-
 
 class DAF_NoOpinionLetter(GEN_Letter):
     template = DAF_NOOPINION_TEMPLATE
 
-
 class DAF_NoFactsAffLetter(GEN_Letter):
     template = DAF_NOFACTS_TEMPLATE
-
 
 class DAF_NotAllowedLetter(GEN_Letter):
     template = DAF_NOTALLOWED_TEMPLATE
 
-
 class OA_NoAddressLetter(GEN_Letter):
     template = OA_NOADD_TEMPLATE
-
 
 class OA_NotNotarizedLetter(GEN_Letter):
     template = OA_NOTNOTARIZED_TEMPLATE
 
-
 class OA_NoSecurityDepositLetter(GEN_Letter):
     template = OA_NOSECDEP_TEMPLATE
-
 
 class OA_NoAddNoSecDepNoAffLetter(GEN_Letter):
     template = OA_NOADDSECDEPAFF_TEMPLATE
 
-
 class DAP_PrematureBriefLetter(GEN_Letter):
     template = DAP_PREMATUREBRIEF_TEMPLATE
-
 
 class LateBriefLetter(GEN_Letter):
     template = LATEBRIEF_TEMPLATE
 
-
 class NoReconLetter(GEN_Letter):
     template = NORECON_TEMPLATE
-
 
 class LateReconLetter(GEN_Letter):
     template = LATERECON_TEMPLATE
 
-
 class AmendJurLetter(GEN_Letter):
     template = AMEND_JUR_TEMPLATE
-
 
 class LateAmendedJurLetter(GEN_Letter):
     template = LATEAMEND_JUR_TEMPLATE
