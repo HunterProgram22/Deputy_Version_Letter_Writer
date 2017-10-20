@@ -33,9 +33,7 @@ DAP_PREMATUREBRIEF_TEMPLATE = TEMPLATE_PATH + 'DapPrematureBrief_Template.docx'
 AMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'AmendJur_Template.docx'
 LATEAMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'LateAmendedJur_Template.docx'
 
-
 DATE_LETTER = time.strftime("%B %d, %Y")
-
 
 class Address(object):
     """ A for creating a mailing address. """

@@ -2,7 +2,7 @@ from tkinter import Tk, E
 import tkinter.ttk as ttk
 from DLW_Views import AppWindow, create_aod_tab, create_tab, add_template_buttons, \
     add_template_previews, populate_tab_content, add_weight
-from DLW_Controller import *
+from DLW_Models import *
 
 TAB_DICT = {'General Letters': 0, 'Jurisdictionals': 1,
         'Direct Appeals': 2, 'Delayed Appeals': 3,
@@ -30,7 +30,6 @@ TIMELY_TAB_TEMPLATE_LIST = [('Late Merit Brief', LateBriefLetter),
         ('Late Recon', LateReconLetter)]
 AMEND_TAB_TEMPLATE_LIST = [('Amend Jur Memo', AmendJurLetter),
         ('Late Amended Jur Memo', LateAmendedJurLetter)]
-
 
 root = Tk()
 root.geometry("1050x900")

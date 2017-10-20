@@ -2,7 +2,7 @@ from tkinter.filedialog import askopenfilename
 from tkinter import messagebox, END
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import os, docx, time, sys
-from DLW_Models import *
+from DLW_Models import AOD_AffiantLetter, AOD_JudgeLetter
 from DLW_Labels import print_label
 
 DATE_LETTER = time.strftime("%B %d, %Y")

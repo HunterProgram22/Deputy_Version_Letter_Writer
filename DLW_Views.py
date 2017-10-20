@@ -4,8 +4,8 @@ import tkinter.ttk as ttk
 import tkinter as tk
 from DLW_Controller import *
 from DLW_Addresses import PRISON_LIST, PRISON_DB
-from DLW_Models import Address, CaseInformation, \
-    AODRequirements, PrisonerAddress, PrisonerAddressJurDates
+from DLW_Models import Address, CaseInformation, AODRequirements, PrisonerAddress, \
+    PrisonerAddressJurDates, PrisonerAddressMotionDates, PrisonerAddressAmendedDates
 from tinydb import TinyDB, Query
 from functools import partial
 
@@ -21,9 +21,6 @@ COA = FORMS_PATH + "COA.docx" #Change of Address
 AFP = FORMS_PATH + "AFP.docx" #Affidavit of Indigence
 
 
-
-
-"""___Control Functions for Creating Widgets___"""
 def add_heading(master, heading):
     heading = ttk.Label(master, text=heading, width=HEADING_WIDTH, font=HEADING_FONT)
     heading.grid(row=master.row_cursor, column=master.col_cursor, columnspan=2,
@@ -203,8 +200,6 @@ def add_template_buttons(tab, recipient_fields, template_list):
 def add_template_previews(button_list, preview_field):
     for button in button_list:
         CreatePreview(button[0], preview_field, button[1].return_preview())
-
-"""***End of Control Functions for Creating Widgets***"""
 
 
 class AppWindow(ttk.Frame):
