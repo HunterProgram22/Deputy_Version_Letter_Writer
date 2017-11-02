@@ -4,6 +4,9 @@ import time, docx
 
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 SAVE_PATH = "S:\\Letter_Writer\\"
+DEPUTY_LETTER_PATH = "S:\\Deputy Clerks\\2017 Correspondence\\"
+AFFIANT_LETTER_PATH = "S:\\AOD\\2017\\Affiant Rejection Letters\\"
+JUDGE_LETTER_PATH = "S:\\AOD\\2017\\Judge Courtesy Letters\\"
 DATE_LETTER = time.strftime("%B %d, %Y")
 
 TEMPLATE = TEMPLATE_PATH + 'Template.docx'
@@ -194,6 +197,7 @@ class Letter(object):
 class AOD_AffiantLetter(Letter):
     def __init__(self, fields):
         Letter.__init__(self, fields)
+        self.path = AFFIANT_LETTER_PATH
         self.template = AFFIANT_TEMPLATE
         self.docname = self.path + self.fields["affiant_last_name"] + ', ' +\
             self.fields["affiant_first_name"] + " (" + self.fields["date"] + ")" +\
@@ -216,6 +220,7 @@ class AOD_AffiantLetter(Letter):
 class AOD_JudgeLetter(Letter):
     def __init__(self, fields):
         Letter.__init__(self, fields)
+        self.path = JUDGE_LETTER_PATH
         self.template = JUDGE_TEMPLATE
         self.docname = self.path + self.fields["judge_last_name"] + ', ' +\
             self.fields["judge_first_name"] + " (" + self.fields["date"] + ")" +\
@@ -227,6 +232,7 @@ class GEN_Letter(Letter):
 
     def __init__(self, fields):
         Letter.__init__(self, fields)
+        self.path = DEPUTY_LETTER_PATH
         self.fields = fields
         self.template = self.__class__.template
         self.docname = self.path + self.fields["Last Name"] + ', ' +\

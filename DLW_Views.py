@@ -15,7 +15,7 @@ HEADING_WIDTH = 30
 SUBHEADING_FONT = "Times 8"
 PREVIEW_FIELD_FONT = "Times 9"
 
-PRISON_DB = TinyDB('C:\\Users\\kudelaj\\Desktop\\Prisons.json')
+PRISON_DB = TinyDB('S:\\Letter_Writer\\Prisons.json')
 
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 FORMS_PATH = "S:\\Letter_Writer\\Forms\\"
