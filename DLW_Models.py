@@ -34,6 +34,8 @@ OA_NOADDSECDEPAFF_TEMPLATE = TEMPLATE_PATH + 'OriginalActionNoAddNoSecDepNoAff_T
 DAP_PREMATUREBRIEF_TEMPLATE = TEMPLATE_PATH + 'DapPrematureBrief_Template.docx'
 AMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'AmendJur_Template.docx'
 LATEAMEND_JUR_TEMPLATE = TEMPLATE_PATH + 'LateAmendedJur_Template.docx'
+LATE_RESPONSE_TEMPLATE = TEMPLATE_PATH + 'Late_Response_Template.docx'
+NO_COS_TEMPLATE = TEMPLATE_PATH + 'NoCertificateofService_Template.docx'
 
 
 class Address(object):
@@ -107,6 +109,14 @@ class PrisonerAddressMotionDates(PrisonerAddress):
         self.data_fields.append(('Supreme Court Decision Date', self.sco_decision_date))
         self.data_fields.append(('Case Number', self.case_number))
         self.data_fields.append(('Case Name', self.case_name))
+
+
+class PrisonerAddressDocumentProblems(PrisonerAddressMotionDates):
+        def __init__(self):
+            PrisonerAddressMotionDates.__init__(self)
+            self.document_name = StringVar()
+            del self.data_fields[11]
+            self.data_fields.insert(11, ('Document Name', self.document_name))
 
 
 class PrisonerAddressAmendedDates(PrisonerAddressMotionDates):
@@ -316,3 +326,9 @@ class AmendJurLetter(GEN_Letter):
 
 class LateAmendedJurLetter(GEN_Letter):
     template = LATEAMEND_JUR_TEMPLATE
+
+class Late_ResponseLetter(GEN_Letter):
+    template = LATE_RESPONSE_TEMPLATE
+
+class NoCertificateofService_Letter(GEN_Letter):
+    template = NO_COS_TEMPLATE

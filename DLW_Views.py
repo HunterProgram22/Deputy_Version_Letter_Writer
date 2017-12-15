@@ -4,7 +4,8 @@ import tkinter.ttk as ttk
 import tkinter as tk
 from DLW_Controller import *
 from DLW_Models import Address, CaseInformation, AODRequirements, PrisonerAddress, \
-    PrisonerAddressJurDates, PrisonerAddressMotionDates, PrisonerAddressAmendedDates
+    PrisonerAddressJurDates, PrisonerAddressMotionDates, PrisonerAddressAmendedDates, \
+    PrisonerAddressDocumentProblems
 from tinydb import TinyDB, Query
 from functools import partial
 
@@ -201,10 +202,12 @@ def populate_tab_content(application, tab_dict_key, template_list):
 def return_recipient_fields(tab_name):
     if tab_name == 'Jurisdictionals':
         return PrisonerAddressJurDates()
-    elif tab_name == 'Briefs and Motions':
+    elif tab_name == 'Briefs and Recons':
         return PrisonerAddressMotionDates()
     elif tab_name == 'Amended Docs':
         return PrisonerAddressAmendedDates()
+    elif tab_name == 'COS / Late Response':
+        return PrisonerAddressDocumentProblems()
     else:
         return PrisonerAddress()
 

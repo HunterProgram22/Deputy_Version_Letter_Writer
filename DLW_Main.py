@@ -5,8 +5,8 @@ from DLW_Views import AppWindow, create_aod_tab, create_tab, add_template_button
 from DLW_Models import *
 
 TAB_DICT = {'General Letters': 0, 'Jurisdictionals': 1,
-        'Direct Appeals': 2, 'Delayed Appeals': 3,
-        'Original Actions': 4, 'Briefs and Motions': 5,
+        'COS / Late Response': 2, 'Delayed Appeals': 3,
+        'Original Actions': 4, 'Briefs and Recons': 5,
         'Amended Docs': 6, 'AOD Letters': 7}
 
 GEN_TAB_TEMPLATE_LIST = [('Document Not Filed', GEN_NotFiledLetter),
@@ -24,15 +24,18 @@ OA_TAB_TEMPLATE_LIST = [('No Respondent Address', OA_NoAddressLetter),
         ('No Aff In Support', OA_NotNotarizedLetter),
         ('No Security Deposit', OA_NoSecurityDepositLetter),
         ('No Address/AFF/SecDep', OA_NoAddNoSecDepNoAffLetter)]
-DAP_TAB_TEMPLATE_LIST = [('Premature Brief', DAP_PrematureBriefLetter)]
-TIMELY_TAB_TEMPLATE_LIST = [('Late Merit Brief', LateBriefLetter),
+COS_TAB_TEMPLATE_LIST = [('Late Response', Late_ResponseLetter),
+        ('No Cert of Service', NoCertificateofService_Letter)
+        ]
+TIMELY_TAB_TEMPLATE_LIST = [('Premature Brief', DAP_PrematureBriefLetter),
+        ('Late Merit Brief', LateBriefLetter),
         ('No Recon Allowed', NoReconLetter),
         ('Late Recon', LateReconLetter)]
 AMEND_TAB_TEMPLATE_LIST = [('Amend Jur Memo', AmendJurLetter),
         ('Late Amended Jur Memo', LateAmendedJurLetter)]
 
 root = Tk()
-root.geometry("1050x900")
+root.geometry("1100x900")
 root.title("General Letter Writer")
 add_weight(root)
 application = AppWindow(root, TAB_DICT)
@@ -45,8 +48,8 @@ populate_tab_content(application, 'General Letters', GEN_TAB_TEMPLATE_LIST)
 populate_tab_content(application, 'Jurisdictionals', JUR_TAB_TEMPLATE_LIST)
 populate_tab_content(application, 'Delayed Appeals', DAF_TAB_TEMPLATE_LIST)
 populate_tab_content(application, 'Original Actions', OA_TAB_TEMPLATE_LIST)
-populate_tab_content(application, 'Direct Appeals', DAP_TAB_TEMPLATE_LIST)
-populate_tab_content(application, 'Briefs and Motions', TIMELY_TAB_TEMPLATE_LIST)
+populate_tab_content(application, 'COS / Late Response', COS_TAB_TEMPLATE_LIST)
+populate_tab_content(application, 'Briefs and Recons', TIMELY_TAB_TEMPLATE_LIST)
 populate_tab_content(application, 'Amended Docs', AMEND_TAB_TEMPLATE_LIST)
 
 root.mainloop()

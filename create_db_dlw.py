@@ -27,6 +27,7 @@ db.insert({'name': 'OriginalActionNoAddNoSecDepNoAff_Template', 'docpath': 'Orig
 db.insert({'name': 'DapPrematureBrief_Template', 'docpath': 'DapPrematureBrief_Template.docx'})
 db.insert({'name': 'AmendJur_Template', 'docpath': 'AmendJur_Template.docx'})
 db.insert({'name': 'LateAmendedJur_Template', 'docpath': 'LateAmendedJur_Template.docx'})
-
+db.insert({'name': 'Late_Response_Template', 'docpath': 'Late_Response_Template.docx'})
+db.insert({'name': 'No_COS_Template', 'docpath': 'NoCertificateofService_Template.docx'})
 
 db.close()
