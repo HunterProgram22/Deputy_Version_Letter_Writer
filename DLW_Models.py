@@ -1,12 +1,14 @@
 from tkinter import StringVar, IntVar, Text
 from os import startfile
-import time, docx
+import time, docx, xml.etree.ElementTree as ET
+from docx.shared import Pt
+
 
 TEMPLATE_PATH = "S:\\Letter_Writer\\Templates\\"
 SAVE_PATH = "S:\\Letter_Writer\\"
-DEPUTY_LETTER_PATH = "S:\\Deputy Clerks\\2017 Correspondence\\"
-AFFIANT_LETTER_PATH = "S:\\AOD\\2017\\Affiant Rejection Letters\\"
-JUDGE_LETTER_PATH = "S:\\AOD\\2017\\Judge Courtesy Letters\\"
+DEPUTY_LETTER_PATH = "S:\\Deputy Clerks\\2018 Correspondence\\"
+AFFIANT_LETTER_PATH = "S:\\AOD\\2018\\Affiant Rejection Letters\\"
+JUDGE_LETTER_PATH = "S:\\AOD\\2018\\Judge Courtesy Letters\\"
 DATE_LETTER = time.strftime("%B %d, %Y")
 
 TEMPLATE = TEMPLATE_PATH + 'Template.docx'
@@ -193,10 +195,13 @@ class Letter(object):
         subclasses it is assigned the relevant template."""
         self.master_template = docx.Document(self.template)
         self.string = ""
-        for paragraph in self.master_template.paragraphs:
-            self.string = self.string + '\n' + paragraph.text
-        self.newstring = self.string.format(**self.fields)
-        self.letter.add_paragraph(self.newstring)
+        for section in self.master_template.paragraphs:
+            self.string = section.text
+            self.newstring = self.string.format(**self.fields)
+            self.paragraph = self.letter.add_paragraph(self.newstring)
+            self.paragraph.style = self.master_template.styles['No Spacing']
+            self.string = ""
+            self.newstring = ""
         self.letter.save(self.docname)
         self.open_letter()
 
