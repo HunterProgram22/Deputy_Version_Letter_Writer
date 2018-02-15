@@ -81,6 +81,27 @@ def add_fields_from_list(master, model):
         master.row_cursor += 1
         row_count +=1
 
+def add_judge_fields_from_list(master, model):
+    """This is used specifically for the AOD tab and the judge fields to fit everything at bottom of tab."""
+    fields = model.return_data_fields()
+    row_count = 0
+    for field in fields:
+        if row_count == 4:
+            master.set_row_cursor(17)
+            master.set_col_cursor (2)
+        label = Label(master, text=field[0])
+        label.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=5)
+        if field[0] == 'Institution':
+            master.set_prison_field(field, model)
+        else:
+            entry = Entry(master, textvariable=field[1], width=20)
+            if row_count >= 4:
+                entry.grid(row=master.row_cursor, column=master.col_cursor, sticky=E, pady=5)
+            else:
+                entry.grid(row=master.row_cursor, column=master.col_cursor+1, pady=5)
+        master.row_cursor += 1
+        row_count +=1
+
 def add_field(master, label, variable):
     label = Label(master, text=label)
     label.grid(row=master.row_cursor, column=master.col_cursor, sticky=W, padx=10, pady=5)
@@ -131,7 +152,7 @@ def add_weight(widget):
 def create_aod_tab(application):
     aod_tab = application.app_tab_dict['AOD Letters']
     add_heading(aod_tab, 'Affiant')
-    affiant_fields = Address()
+    affiant_fields = PrisonerAddress()
     add_gender_radiobuttons(aod_tab, affiant_fields)
     add_fields_from_list(aod_tab, affiant_fields)
     add_heading(aod_tab, 'Case Information')
@@ -140,7 +161,7 @@ def create_aod_tab(application):
     add_fields_from_list(aod_tab, case_information_fields)
     add_heading(aod_tab, 'Judge')
     judge_fields = Address()
-    add_fields_from_list(aod_tab, judge_fields)
+    add_judge_fields_from_list(aod_tab, judge_fields) #Specific function to address space on tab
     aod_tab.set_col_cursor(2)
     aod_tab.set_row_cursor(0)
     add_heading(aod_tab, 'AOD Requirements')
@@ -223,8 +244,9 @@ class AppWindow(ttk.Frame):
         self.set_style()
         self.menu = AppMenu(self.master)
         for key, value in self.tab_dict.items():
-                if key == 'AOD Letters':
-                    self.tab = TabWindow(self.notebook)
+                if key == 'AOD Letters': #The if statement exists because in an old version AOD Letter used TabWindow and not TabWindowPrisoner
+                    # Ideally this if statement should be removed but it allows for non-prisoner tabs in the future
+                    self.tab = TabWindowPrisoner(self.notebook)
                 else:
                     self.tab = TabWindowPrisoner(self.notebook)
                 self.notebook.add(self.tab, text=key)
